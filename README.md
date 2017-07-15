@@ -263,7 +263,7 @@ Other Style Guides
   <a name="stringss--quotes"></a><a name="6.1"></a>
   - [6.1](#strings--quotes) Use single quotes `''` for strings.
 
-    > Why? Less escaping for double quote `""`, and makes code more searchable.
+    > Why? Less escaping for double quote `""`, less bloat, and makes code more searchable.
 
     ```python
     # bad
