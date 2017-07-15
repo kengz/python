@@ -486,6 +486,26 @@ Other Style Guides
     )
     ```
 
+  <a name="functions--call-param-name"></a><a name="7.5"></a>
+  - [7.5](#functions--call-param-name) Call function with parameters by specifying their names.
+
+    > Why? Clarity of parameters and future-proofing. When updating source code function parameters, it can be done reliably with minimal propagation.
+
+    ```python
+    def move(x, y, roll=False):
+        # ...
+
+    # bad
+    move(1, 0, True) # unclear what the params mean
+
+    # good
+    move(x=1, y=0, roll=True)
+
+    def move(x, y, z=0, roll=False): # later when updating method
+        # ...
+    # no need to propagate function calls since they will auto-assume z=0 reliably
+    ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Classes & Constructors
