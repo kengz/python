@@ -151,13 +151,14 @@ Other Style Guides
   - [3.4](#dictionaries--braces-newline) Use line breaks after open and before close dictionary braces only if a dictionary has multiple lines.
 
     ```python
-    # bad
+    # bad - single item will not exceed one line
     single_map = {
-        'a': 1, # single item will not exceed one line
+        'a': 1,
     }
 
+    # bad - single line
     item_map = {
-        'a': 1, 'b': 2, 'c': 3, # single line
+        'a': 1, 'b': 2, 'c': 3,
     }
 
     # good
@@ -181,10 +182,10 @@ Other Style Guides
         'b': 2,
     }
 
-    # bad
-    item_map['c'] # throws error
+    # bad - throws error
+    item_map['c']
 
-    # bad
+    # bad - bloated code
     try:
         item_map['c']
     except KeyError:
@@ -235,12 +236,13 @@ Other Style Guides
   - [4.3](#lists--bracket-newline) Use line breaks after open and before close list brackets only if a list has multiple lines.
 
     ```python
-    # bad
+    # bad - single line
     items = [
-        [0, 1], [2, 3], [4, 5], # single line
+        [0, 1], [2, 3], [4, 5],
     ]
 
-    dict_list = [{ # no line break after bracket
+    # bad - no line break after bracket
+    dict_list = [{
         'id': 1
     }, {
         'id': 2
@@ -495,15 +497,15 @@ Other Style Guides
     def move(x, y, roll=False):
         # ...
 
-    # bad
-    move(1, 0, True) # unclear what the params mean
+    # bad - unclear what the params mean
+    move(1, 0, True)
 
     # good
     move(x=1, y=0, roll=True)
 
-    def move(x, y, z=0, roll=False): # later when updating method
+    # later when updating method, no need to propagate function calls since they will auto-assume z=0 reliably
+    def move(x, y, z=0, roll=False):
         # ...
-    # no need to propagate function calls since they will auto-assume z=0 reliably
     ```
 
 **[⬆ back to top](#table-of-contents)**
@@ -636,168 +638,90 @@ Other Style Guides
 ## Variables
 
   <a name="variables--const"></a><a name="11.1"></a>
-  - [11.1](#variables--const) Always use `const` or `let` to declare variables. Not doing so will result in global variables. We want to avoid polluting the global namespace. Captain Planet warned us of that. eslint: [`no-undef`](http://eslint.org/docs/rules/no-undef) [`prefer-const`](http://eslint.org/docs/rules/prefer-const)
+  - [11.1](#variables--const) Use UPPERCASE to declare constants, and observe the convention - do not modify them in the program. Python has no `constant` type, so it must be observed manually.
 
-    ```javascript
-    // bad
-    superPower = new SuperPower();
+    ```python
+    # bad
+    a_constant = 1
+    os.environ['py_env'] = 'development'
 
-    // good
-    const superPower = new SuperPower();
+    # good
+    A_CONSTANT = 1
+    os.environ['PY_ENV'] = 'development'
     ```
 
-  <a name="variables--one-const"></a><a name="13.2"></a>
-  - [13.2](#variables--one-const) Use one `const` or `let` declaration per variable. eslint: [`one-var`](http://eslint.org/docs/rules/one-var.html) jscs: [`disallowMultipleVarDecl`](http://jscs.info/rule/disallowMultipleVarDecl)
+  <a name="variables--one-const"></a><a name="11.2"></a>
+  - [11.2](#variables--one-const) Declare one constant per line.
 
-    > Why? It’s easier to add new variable declarations this way, and you never have to worry about swapping out a `;` for a `,` or introducing punctuation-only diffs. You can also step through each declaration with the debugger, instead of jumping through all of them at once.
+    > Why? For clarity, and it’s easier to add/remove declarations this way, and with minimal git-diffs. You can also step through each declaration with the debugger, instead of jumping through all of them at once.
 
-    ```javascript
-    // bad
-    const items = getItems(),
-        goSportsTeam = true,
-        dragonball = 'z';
+    ```python
+    # bad
+    FOO, BAR, BAZ = 1, 2, 3
 
-    // bad
-    // (compare to above, and try to spot the mistake)
-    const items = getItems(),
-        goSportsTeam = true;
-        dragonball = 'z';
-
-    // good
-    const items = getItems();
-    const goSportsTeam = true;
-    const dragonball = 'z';
+    # good
+    FOO = 1
+    BAR = 2
+    BAZ = 3
     ```
 
-  <a name="variables--const-let-group"></a><a name="13.3"></a>
-  - [13.3](#variables--const-let-group) Group all your `const`s and then group all your `let`s.
+  <a name="variables--const-group"></a><a name="11.3"></a>
+  - [11.3](#variables--const-group) Group all your `CONST`s and then group all your `var`s.
 
-    > Why? This is helpful when later on you might need to assign a variable depending on one of the previous assigned variables.
+    > Why? For clarity and ease of reference. This is also helpful when later on you might need to assign a variable depending on one of the previous assigned variables.
 
-    ```javascript
-    // bad
-    let i, len, dragonball,
-        items = getItems(),
-        goSportsTeam = true;
+    ```python
+    # bad
+    FOO = 1
+    counter = 0
+    BAR = 2
+    length = counter
 
-    // bad
-    let i;
-    const items = getItems();
-    let dragonball;
-    const goSportsTeam = true;
-    let len;
+    # good
+    FOO = 1
+    BAR = 2
 
-    // good
-    const goSportsTeam = true;
-    const items = getItems();
-    let dragonball;
-    let i;
-    let length;
+    counter = 0
+    length = counter
     ```
 
-  <a name="variables--define-where-used"></a><a name="13.4"></a>
-  - [13.4](#variables--define-where-used) Assign variables where you need them, but place them in a reasonable place.
+  <a name="variables--define-where-used"></a><a name="11.4"></a>
+  - [11.4](#variables--define-where-used) Assign variables with the minimally sufficient scope at where you need them, but place them in a reasonable place.
 
-    > Why? `let` and `const` are block scoped and not function scoped.
+    > Why? Prevent variable scope-leak and conflicts
 
-    ```javascript
-    // bad - unnecessary function call
-    function checkName(hasName) {
-      const name = getName();
+    ```python
+    # bad - leak to sibling
+    counter = 0 # mean to count group_a only
+    for list_a in group_a:
+        counter += len(list_a)
 
-      if (hasName === 'test') {
-        return false;
-      }
+    for list_b in group_b:
+        counter += len(list_b)
 
-      if (name === 'test') {
-        this.setName('');
-        return false;
-      }
+    # bad - leak into smaller scope
+    counter = 0 # mean to count within groups
+    for group in super_group:
+        counter += len(group)
+        for list in group:
+            counter += len(list)
 
-      return name;
-    }
+    # good
+    counter_a = 0
+    for list_a in group_a:
+        counter_a += len(list_a)
 
-    // good
-    function checkName(hasName) {
-      if (hasName === 'test') {
-        return false;
-      }
+    counter_b = 0
+    for list_b in group_b:
+        counter_b += len(list_b)
 
-      const name = getName();
-
-      if (name === 'test') {
-        this.setName('');
-        return false;
-      }
-
-      return name;
-    }
-    ```
-  <a name="variables--no-chain-assignment"></a><a name="13.5"></a>
-  - [13.5](#variables--no-chain-assignment) Don’t chain variable assignments.
-
-    > Why? Chaining variable assignments creates implicit global variables.
-
-    ```javascript
-    // bad
-    (function example() {
-      // JavaScript interprets this as
-      // let a = ( b = ( c = 1 ) );
-      // The let keyword only applies to variable a; variables b and c become
-      // global variables.
-      let a = b = c = 1;
-    }());
-
-    console.log(a); // throws ReferenceError
-    console.log(b); // 1
-    console.log(c); // 1
-
-    // good
-    (function example() {
-      let a = 1;
-      let b = a;
-      let c = a;
-    }());
-
-    console.log(a); // throws ReferenceError
-    console.log(b); // throws ReferenceError
-    console.log(c); // throws ReferenceError
-
-    // the same applies for `const`
-    ```
-
-  <a name="variables--unary-increment-decrement"></a><a name="13.6"></a>
-  - [13.6](#variables--unary-increment-decrement) Avoid using unary increments and decrements (++, --). eslint [`no-plusplus`](http://eslint.org/docs/rules/no-plusplus)
-
-    > Why? Per the eslint documentation, unary increment and decrement statements are subject to automatic semicolon insertion and can cause silent errors with incrementing or decrementing values within an application. It is also more expressive to mutate your values with statements like `num += 1` instead of `num++` or `num ++`. Disallowing unary increment and decrement statements also prevents you from pre-incrementing/pre-decrementing values unintentionally which can also cause unexpected behavior in your programs.
-
-    ```javascript
-    // bad
-
-    const array = [1, 2, 3];
-    let num = 1;
-    num++;
-    --num;
-
-    let sum = 0;
-    let truthyCount = 0;
-    for (let i = 0; i < array.length; i++) {
-      let value = array[i];
-      sum += value;
-      if (value) {
-        truthyCount++;
-      }
-    }
-
-    // good
-
-    const array = [1, 2, 3];
-    let num = 1;
-    num += 1;
-    num -= 1;
-
-    const sum = array.reduce((a, b) => a + b, 0);
-    const truthyCount = array.filter(Boolean).length;
+    # good
+    group_counter = 0 # mean to count within groups
+    for group in super_group:
+        group_counter += len(group)
+        list_counter = 0 # mean to count within lists
+        for list in group:
+            list_counter += len(list)
     ```
 
 **[⬆ back to top](#table-of-contents)**
