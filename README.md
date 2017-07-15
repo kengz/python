@@ -477,8 +477,13 @@ Other Style Guides
     from common import util
     ```
 
-  <a name="modules--no-duplicate-imports"></a><a name="9.2"></a>
-  - [9.2](#modules--no-duplicate-imports) Only import from a path in one place.
+
+  <a name="modules--no-unused"></a><a name="9.2"></a>
+  - [9.2](#modules--no-unused) Do not import unused modules.
+    >Why? Performance, reliability, containment. If a module breaks, your code that should be isolated from the module will break too. This causes more errors and makes it harder to debug.
+
+  <a name="modules--no-duplicate-imports"></a><a name="9.3"></a>
+  - [9.3](#modules--no-duplicate-imports) Only import from a path in one place.
     > Why? Having multiple lines that import from the same path can make code harder to maintain.
 
     ```python
@@ -498,8 +503,8 @@ Other Style Guides
     )
     ```
 
-  <a name="modules--imports-first"></a><a name="9.3"></a>
-  - [9.3](#modules--imports-first) Put all `import`s above non-import statements.
+  <a name="modules--imports-first"></a><a name="9.4"></a>
+  - [9.4](#modules--imports-first) Put all `import`s above non-import statements.
     > Why? Since `import`s are hoisted, keeping them all at the top prevents surprising behavior.
 
     ```python
@@ -518,8 +523,8 @@ Other Style Guides
     foo.init();
     ```
 
-  <a name="modules--imports-sorted"></a><a name="9.4"></a>
-  - [9.4](#modules--imports-sorted) Sort the `import`s by `import` then `from`, and sort alphabetically.
+  <a name="modules--imports-sorted"></a><a name="9.5"></a>
+  - [9.5](#modules--imports-sorted) Sort the `import`s by `import` then `from`, and sort alphabetically.
     > Why? `import` are often more generic that `from`; sort to ease manual inspection and for maintainability.
 
     ```python
@@ -536,8 +541,8 @@ Other Style Guides
     from c_module import b_fn, c_fn
     ```
 
-  <a name="modules--multiline-imports-over-newlines"></a><a name="9.5"></a>
-  - [9.5](#modules--multiline-imports-over-newlines) Multiline imports should be indented just like multiline list and dictionary literals.
+  <a name="modules--multiline-imports-over-newlines"></a><a name="9.6"></a>
+  - [9.6](#modules--multiline-imports-over-newlines) Multiline imports should be indented just like multiline list and dictionary literals.
 
     > Why? The parentheses follow the same indentation rules as every other bracket or brace block in the style guide, as do the trailing commas.
 
