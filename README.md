@@ -204,8 +204,6 @@ Other Style Guides
     clone = [*items, *items2, 'e']
     ```
 
-**[⬆ back to top](#table-of-contents)**
-
   <a name="lists--bracket-newline"></a><a name="4.3"></a>
   - [4.3](#lists--bracket-newline) Use line breaks after open and before close list brackets only if a list has multiple lines.
 
@@ -349,8 +347,8 @@ Other Style Guides
 
 ## Functions
 
-  <a name="default-parameters"></a><a name="7.7"></a>
-  - [7.7](#default-parameters) Use default parameter syntax rather than mutating function arguments.
+  <a name="default-parameters"></a><a name="7.1"></a>
+  - [7.1](#default-parameters) Use default parameter syntax rather than mutating function arguments.
 
     ```python
     # really bad
@@ -372,8 +370,8 @@ Other Style Guides
         # ...
     ```
 
-  <a name="functions--signature-no-spacing"></a><a name="7.11"></a>
-  - [7.11](#functions--signature-no-spacing) No spacing in a function signature.
+  <a name="functions--signature-no-spacing"></a><a name="7.2"></a>
+  - [7.2](#functions--signature-no-spacing) No spacing in a function signature.
 
     > Why? Consistency is good, and eases code search.
 
@@ -387,8 +385,8 @@ Other Style Guides
     def bar(b): print(b)
     ```
 
-  <a name="functions--reassign-params"></a><a name="7.13"></a>
-  - [7.13](#functions--reassign-params) Never reassign parameters.
+  <a name="functions--reassign-params"></a><a name="7.3"></a>
+  - [7.3](#functions--reassign-params) Never reassign parameters.
 
     > Why? Reassigning parameters can lead to unexpected behavior.
 
@@ -411,8 +409,8 @@ Other Style Guides
         # ...
     ```
 
-  <a name="functions--signature-invocation-indentation"></a>
-  - [7.15](#functions--signature-invocation-indentation) Functions with multiline signatures, or invocations, should be indented just like every other multiline list in this guide: with each item on a line by itself, with a trailing comma on the last item.
+  <a name="functions--signature-invocation-indentation"></a><a name="7.4"></a>
+  - [7.4](#functions--signature-invocation-indentation) Functions with multiline signatures, or invocations, should be indented just like every other multiline list in this guide: with each item on a line by itself, with a trailing comma on the last item.
 
     ```python
     # bad
@@ -446,8 +444,8 @@ Other Style Guides
 
 ## Classes & Constructors
 
-  <a name="classes--no-duplicate-members"></a><a name="9.1"></a>
-  - [9.1](#classes--no-duplicate-members) Avoid duplicate class members.
+  <a name="classes--no-duplicate-members"></a><a name="8.1"></a>
+  - [8.1](#classes--no-duplicate-members) Avoid duplicate class members.
 
     > Why? Duplicate class member declarations will silently prefer the last one - having duplicates is almost certainly a bug.
 
@@ -466,8 +464,8 @@ Other Style Guides
 
 ## Modules
 
-  <a name="modules--no-wildcard"></a><a name="10.1"></a>
-  - [10.1](#modules--no-wildcard) Do not use wildcard imports.
+  <a name="modules--no-wildcard"></a><a name="9.1"></a>
+  - [9.1](#modules--no-wildcard) Do not use wildcard imports.
 
     > Why? To prevent namespace pollution and conflicts, and to know which modules your variables or functions come from.
 
@@ -479,8 +477,8 @@ Other Style Guides
     from common import util
     ```
 
-  <a name="modules--no-duplicate-imports"></a><a name="10.2"></a>
-  - [10.2](#modules--no-duplicate-imports) Only import from a path in one place.
+  <a name="modules--no-duplicate-imports"></a><a name="9.2"></a>
+  - [9.2](#modules--no-duplicate-imports) Only import from a path in one place.
     > Why? Having multiple lines that import from the same path can make code harder to maintain.
 
     ```python
@@ -500,8 +498,8 @@ Other Style Guides
     )
     ```
 
-  <a name="modules--imports-first"></a><a name="10.3"></a>
-  - [10.3](#modules--imports-first) Put all `import`s above non-import statements.
+  <a name="modules--imports-first"></a><a name="9.3"></a>
+  - [9.3](#modules--imports-first) Put all `import`s above non-import statements.
     > Why? Since `import`s are hoisted, keeping them all at the top prevents surprising behavior.
 
     ```python
@@ -520,8 +518,8 @@ Other Style Guides
     foo.init();
     ```
 
-  <a name="modules--imports-sorted"></a><a name="10.4"></a>
-  - [10.4](#modules--imports-sorted) Sort the `import`s by `import` then `from`, and sort alphabetically.
+  <a name="modules--imports-sorted"></a><a name="9.4"></a>
+  - [9.4](#modules--imports-sorted) Sort the `import`s by `import` then `from`, and sort alphabetically.
     > Why? `import` are often more generic that `from`; sort to ease manual inspection and for maintainability.
 
     ```python
@@ -538,8 +536,8 @@ Other Style Guides
     from c_module import b_fn, c_fn
     ```
 
-  <a name="modules--multiline-imports-over-newlines"></a><a name="10.5"></a>
-  - [10.5](#modules--multiline-imports-over-newlines) Multiline imports should be indented just like multiline list and dictionary literals.
+  <a name="modules--multiline-imports-over-newlines"></a><a name="9.5"></a>
+  - [9.5](#modules--multiline-imports-over-newlines) Multiline imports should be indented just like multiline list and dictionary literals.
 
     > Why? The parentheses follow the same indentation rules as every other bracket or brace block in the style guide, as do the trailing commas.
 
