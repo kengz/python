@@ -93,8 +93,8 @@ Other Style Guides
 
 ## Dictionaries
 
-  <a name="dictionaries--no-new"></a><a name="3.1"></a>
-  - [3.1](#dictionaries--no-new) Use the literal syntax for dictionary creation.
+  <a name="dictionaries--literals"></a><a name="3.1"></a>
+  - [3.1](#dictionaries--literals) Use the literal syntax for dictionary creation.
 
     ```python
     # bad
@@ -129,8 +129,8 @@ Other Style Guides
     }
     ```
 
-  <a name="dictionaries---spread"></a><a name="3.3"></a>
-  - [3.3](#dictionaries---spread) Prefer the dictionary spread operator over `copy()` to shallow-copy and extend dictionaries.
+  <a name="dictionaries--spread"></a><a name="3.3"></a>
+  - [3.3](#dictionaries--spread) Prefer the dictionary spread operator over `copy()` to shallow-copy and extend dictionaries.
 
     ```python
     // bad
@@ -148,146 +148,96 @@ Other Style Guides
     long_clone = {**original, **original_2, 'e': 5}
     ```
 
+  <a name="dictionaries--braces-newline"></a><a name="3.4"></a>
+  - [3.4](#dictionaries--braces-newline) Use line breaks after open and before close dictionary braces only if a dictionary has multiple lines.
+
+    ```python
+    # bad
+    single_map = {
+        'a': 1, # single item will not exceed one line
+    }
+
+    item_map = {
+        'a': 1, 'b': 2, 'c': 3, # single line
+    }
+
+    # good
+    single_map = {'a': 1}
+
+    item_map = {
+        'a': 1,
+        'b': 2,
+        'c': 3,
+    }
+    ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Lists
 
-  <a name="arrays--literals"></a><a name="4.1"></a>
-  - [4.1](#arrays--literals) Use the literal syntax for array creation. eslint: [`no-array-constructor`](http://eslint.org/docs/rules/no-array-constructor.html)
+  <a name="lists--literals"></a><a name="4.1"></a>
+  - [4.1](#lists--literals) Use the literal syntax for list creation.
 
-    ```javascript
-    // bad
-    const items = new Array();
+    ```python
+    # bad
+    items = list()
 
-    // good
-    const items = [];
+    # good
+    items = []
     ```
 
-  <a name="arrays--push"></a><a name="4.2"></a>
-  - [4.2](#arrays--push) Use [Array#push](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/push) instead of direct assignment to add items to an array.
+  <a name="list--spreads"></a><a name="4.2"></a>
+  - [4.2](#list--spreads) Use list spreads `*` to copy and extend lists.
 
-    ```javascript
-    const someStack = [];
+    ```python
+    # bad
+    items = ['a', 'b']
+    clone = items.copy() + ['c']
 
-    // bad
-    someStack[someStack.length] = 'abracadabra';
+    # good
+    items = ['a', 'b']
+    clone = [*items, 'c']
 
-    // good
-    someStack.push('abracadabra');
-    ```
-
-  <a name="es6-array-spreads"></a><a name="4.3"></a>
-  - [4.3](#es6-array-spreads) Use array spreads `...` to copy arrays.
-
-    ```javascript
-    // bad
-    const len = items.length;
-    const itemsCopy = [];
-    let i;
-
-    for (i = 0; i < len; i += 1) {
-      itemsCopy[i] = items[i];
-    }
-
-    // good
-    const itemsCopy = [...items];
-    ```
-
-  <a name="arrays--from"></a><a name="4.4"></a>
-  - [4.4](#arrays--from) To convert an array-like object to an array, use [Array.from](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/from).
-
-    ```javascript
-    const foo = document.querySelectorAll('.foo');
-    const nodes = Array.from(foo);
-    ```
-
-  <a name="arrays--callback-return"></a><a name="4.5"></a>
-  - [4.5](#arrays--callback-return) Use return statements in array method callbacks. It’s ok to omit the return if the function body consists of a single statement returning an expression without side effects, following [8.2](#arrows--implicit-return). eslint: [`array-callback-return`](http://eslint.org/docs/rules/array-callback-return)
-
-    ```javascript
-    // good
-    [1, 2, 3].map((x) => {
-      const y = x + 1;
-      return x * y;
-    });
-
-    // good
-    [1, 2, 3].map(x => x + 1);
-
-    // bad
-    const flat = {};
-    [[0, 1], [2, 3], [4, 5]].reduce((memo, item, index) => {
-      const flatten = memo.concat(item);
-      flat[index] = flatten;
-    });
-
-    // good
-    const flat = {};
-    [[0, 1], [2, 3], [4, 5]].reduce((memo, item, index) => {
-      const flatten = memo.concat(item);
-      flat[index] = flatten;
-      return flatten;
-    });
-
-    // bad
-    inbox.filter((msg) => {
-      const { subject, author } = msg;
-      if (subject === 'Mockingbird') {
-        return author === 'Harper Lee';
-      } else {
-        return false;
-      }
-    });
-
-    // good
-    inbox.filter((msg) => {
-      const { subject, author } = msg;
-      if (subject === 'Mockingbird') {
-        return author === 'Harper Lee';
-      }
-
-      return false;
-    });
+    # good
+    items = ['a', 'b']
+    items_2 = ['c', 'd']
+    clone = [*items, *items2, 'e']
     ```
 
 **[⬆ back to top](#table-of-contents)**
 
-<a name="arrays--bracket-newline"></a>
-  - [4.6](#arrays--bracket-newline) Use line breaks after open and before close array brackets if an array has multiple lines
+  <a name="lists--bracket-newline"></a><a name="4.3"></a>
+  - [4.3](#lists--bracket-newline) Use line breaks after open and before close list brackets only if a list has multiple lines.
 
-  ```javascript
-  // bad
-  const arr = [
-    [0, 1], [2, 3], [4, 5],
-  ];
+    ```python
+    # bad
+    items = [
+        [0, 1], [2, 3], [4, 5], # single line
+    ]
 
-  const objectInArray = [{
-    id: 1,
-  }, {
-    id: 2,
-  }];
+    dict_list = [{ # no line break after bracket
+        'id': 1
+    }, {
+        'id': 2
+    }]
 
-  const numberInArray = [
-    1, 2,
-  ];
+    number_list = [
+        1, 2,
+    ]
 
-  // good
-  const arr = [[0, 1], [2, 3], [4, 5]];
+    # good
+    items = [[0, 1], [2, 3], [4, 5]]
 
-  const objectInArray = [
-    {
-      id: 1,
-    },
-    {
-      id: 2,
-    },
-  ];
+    dict_list = [
+        {'id': 1},
+        {'id': 2},
+    ]
 
-  const numberInArray = [
-    1,
-    2,
-  ];
-  ```
+    number_list = [
+        1,
+        2,
+    ]
+    ```
 
 **[⬆ back to top](#table-of-contents)**
 
