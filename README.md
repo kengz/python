@@ -19,7 +19,6 @@ Other Style Guides
   1. [Classes & Constructors](#classes--constructors)
   1. [Modules](#modules)
   1. [Iterators and Generators](#iterators-and-generators)
-  1. [Properties](#properties)
   1. [Variables](#variables)
   1. [Hoisting](#hoisting)
   1. [Comparison Operators & Equality](#comparison-operators--equality)
@@ -169,6 +168,34 @@ Other Style Guides
         'b': 2,
         'c': 3,
     }
+    ```
+
+  <a name="dictionaries--use-get"></a><a name="3.5"></a>
+  - [3.5](#dictionaries--use-get) Use `dict.get(key)` to get properties.
+
+    >Why? Getting via `dict[key]` will break on missing key, and requires bloated code to guard against.
+
+    ```python
+    item_map = {
+        'a': 1,
+        'b': 2,
+    }
+
+    # bad
+    item_map['c'] # throws error
+
+    # bad
+    try:
+        item_map['c']
+    except KeyError:
+        item_map['c'] = 3
+        return item_map['c']
+
+    # good
+    item_map.get('c')
+
+    # good
+    item_map['c'] = item_map.get('c') or 3
     ```
 
 **[⬆ back to top](#table-of-contents)**
@@ -564,42 +591,6 @@ Other Style Guides
 ## Iterators and Generators
 
   (Pending)
-
-**[⬆ back to top](#table-of-contents)**
-
-## Properties
-
-  <a name="properties--dot"></a><a name="12.1"></a>
-  - [12.1](#properties--dot) Use dot notation when accessing properties. eslint: [`dot-notation`](http://eslint.org/docs/rules/dot-notation.html) jscs: [`requireDotNotation`](http://jscs.info/rule/requireDotNotation)
-
-    ```javascript
-    const luke = {
-      jedi: true,
-      age: 28,
-    };
-
-    // bad
-    const isJedi = luke['jedi'];
-
-    // good
-    const isJedi = luke.jedi;
-    ```
-
-  <a name="properties--bracket"></a><a name="12.2"></a>
-  - [12.2](#properties--bracket) Use bracket notation `[]` when accessing properties with a variable.
-
-    ```javascript
-    const luke = {
-      jedi: true,
-      age: 28,
-    };
-
-    function getProp(prop) {
-      return luke[prop];
-    }
-
-    const isJedi = getProp('jedi');
-    ```
 
 **[⬆ back to top](#table-of-contents)**
 
