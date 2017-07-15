@@ -173,7 +173,7 @@ Other Style Guides
   <a name="dictionaries--use-get"></a><a name="3.5"></a>
   - [3.5](#dictionaries--use-get) Use `dict.get(key)` to get properties.
 
-    >Why? Getting via `dict[key]` will break on missing key, and requires bloated code to guard against.
+    > Why? Getting via `dict[key]` will break on missing key, and requires bloated code to guard against.
 
     ```python
     item_map = {
@@ -353,6 +353,25 @@ Other Style Guides
         return f'How are you, {name}?'
     ```
 
+    > For python < 3.6, convert f-string to template string by `format()`:
+
+    ```python
+    a = 1
+    b = 2
+    c = 3
+
+    # python >=3.6
+    f'a: {a} b: {b} c: {c}'
+
+    # python <3.6
+    'a: {a} b: {b} c: {c}'.format(a=a, b=b, c=c)
+
+    param = {'a': a, 'b': b, 'c': c}
+    'a: {a} b: {b} c: {c}'.format(**param)
+
+    'a: {} b: {} c: {}'.format(a, b, c)
+    ```
+
   <a name="strings--eval"></a><a name="6.4"></a>
   - [6.4](#strings--eval) Never use `eval()` on a string, it opens too many vulnerabilities.
 
@@ -507,7 +526,7 @@ Other Style Guides
 
   <a name="modules--no-unused"></a><a name="9.2"></a>
   - [9.2](#modules--no-unused) Do not import unused modules.
-    >Why? Performance, reliability, containment. If a module breaks, your code that should be isolated from the module will break too. This causes more errors and makes it harder to debug.
+    > Why? Performance, reliability, containment. If a module breaks, your code that should be isolated from the module will break too. This causes more errors and makes it harder to debug.
 
   <a name="modules--no-duplicate-imports"></a><a name="9.3"></a>
   - [9.3](#modules--no-duplicate-imports) Only import from a path in one place.
@@ -596,8 +615,8 @@ Other Style Guides
 
 ## Variables
 
-  <a name="variables--const"></a><a name="13.1"></a>
-  - [13.1](#variables--const) Always use `const` or `let` to declare variables. Not doing so will result in global variables. We want to avoid polluting the global namespace. Captain Planet warned us of that. eslint: [`no-undef`](http://eslint.org/docs/rules/no-undef) [`prefer-const`](http://eslint.org/docs/rules/prefer-const)
+  <a name="variables--const"></a><a name="11.1"></a>
+  - [11.1](#variables--const) Always use `const` or `let` to declare variables. Not doing so will result in global variables. We want to avoid polluting the global namespace. Captain Planet warned us of that. eslint: [`no-undef`](http://eslint.org/docs/rules/no-undef) [`prefer-const`](http://eslint.org/docs/rules/prefer-const)
 
     ```javascript
     // bad
