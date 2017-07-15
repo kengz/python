@@ -1,6 +1,6 @@
 # Python Style Guide
 
-*A mostly reasonable approach to Python*
+*A mostly reasonable approach to Python (3)*
 
 Other Style Guides
 
@@ -48,32 +48,31 @@ Other Style Guides
     - `string`
     - `number`
     - `boolean`
-    - `null`
-    - `undefined`
+    - `None`
 
-    ```javascript
-    const foo = 1;
-    let bar = foo;
+    ```python
+    foo = 1
+    bar = foo
 
-    bar = 9;
+    bar = 9
 
-    console.log(foo, bar); // => 1, 9
+    print(foo, bar) # => 1, 9
     ```
 
   <a name="types--complex"></a><a name="1.2"></a>
   - [1.2](#types--complex)  **Complex**: When you access a complex type you work on a reference to its value.
 
-    - `object`
-    - `array`
+    - `dict`
+    - `list`
     - `function`
 
-    ```javascript
-    const foo = [1, 2];
-    const bar = foo;
+    ```python
+    foo = [1, 2]
+    bar = foo
 
-    bar[0] = 9;
+    bar[0] = 9
 
-    console.log(foo[0], bar[0]); // => 9, 9
+    print(foo[0], bar[0]) # => 9, 9
     ```
 
 **[⬆ back to top](#table-of-contents)**
