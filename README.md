@@ -446,8 +446,8 @@ Other Style Guides
 
 ## Classes & Constructors
 
-  <a name="classes--no-duplicate-members"></a>
-  - [9.6](#classes--no-duplicate-members) Avoid duplicate class members.
+  <a name="classes--no-duplicate-members"></a><a name="9.1"></a>
+  - [9.1](#classes--no-duplicate-members) Avoid duplicate class members.
 
     > Why? Duplicate class member declarations will silently prefer the last one - having duplicates is almost certainly a bug.
 
@@ -466,153 +466,94 @@ Other Style Guides
 
 ## Modules
 
-  <a name="modules--use-them"></a><a name="10.1"></a>
-  - [10.1](#modules--use-them) Always use modules (`import`/`export`) over a non-standard module system. You can always transpile to your preferred module system.
+  <a name="modules--no-wildcard"></a><a name="10.1"></a>
+  - [10.1](#modules--no-wildcard) Do not use wildcard imports.
 
-    > Why? Modules are the future, let’s start using the future now.
+    > Why? To prevent namespace pollution and conflicts, and to know which modules your variables or functions come from.
 
-    ```javascript
-    // bad
-    const AirbnbStyleGuide = require('./AirbnbStyleGuide');
-    module.exports = AirbnbStyleGuide.es6;
+    ```python
+    # bad
+    from common.util import *
 
-    // ok
-    import AirbnbStyleGuide from './AirbnbStyleGuide';
-    export default AirbnbStyleGuide.es6;
-
-    // best
-    import { es6 } from './AirbnbStyleGuide';
-    export default es6;
+    # good
+    from common import util
     ```
 
-  <a name="modules--no-wildcard"></a><a name="10.2"></a>
-  - [10.2](#modules--no-wildcard) Do not use wildcard imports.
-
-    > Why? This makes sure you have a single default export.
-
-    ```javascript
-    // bad
-    import * as AirbnbStyleGuide from './AirbnbStyleGuide';
-
-    // good
-    import AirbnbStyleGuide from './AirbnbStyleGuide';
-    ```
-
-  <a name="modules--no-export-from-import"></a><a name="10.3"></a>
-  - [10.3](#modules--no-export-from-import) And do not export directly from an import.
-
-    > Why? Although the one-liner is concise, having one clear way to import and one clear way to export makes things consistent.
-
-    ```javascript
-    // bad
-    // filename es6.js
-    export { es6 as default } from './AirbnbStyleGuide';
-
-    // good
-    // filename es6.js
-    import { es6 } from './AirbnbStyleGuide';
-    export default es6;
-    ```
-
-  <a name="modules--no-duplicate-imports"></a>
-  - [10.4](#modules--no-duplicate-imports) Only import from a path in one place.
- eslint: [`no-duplicate-imports`](http://eslint.org/docs/rules/no-duplicate-imports)
+  <a name="modules--no-duplicate-imports"></a><a name="10.2"></a>
+  - [10.2](#modules--no-duplicate-imports) Only import from a path in one place.
     > Why? Having multiple lines that import from the same path can make code harder to maintain.
 
-    ```javascript
-    // bad
-    import foo from 'foo';
-    // … some other imports … //
-    import { named1, named2 } from 'foo';
+    ```python
+    # bad
+    from foo import bar
+    # ... some other imports
+    from foo import baz, qux
 
-    // good
-    import foo, { named1, named2 } from 'foo';
+    # good
+    from foo import bar, baz, qux
 
-    // good
-    import foo, {
-      named1,
-      named2,
-    } from 'foo';
+    # good
+    from foo import (
+        bar,
+        baz,
+        qux,
+    )
     ```
 
-  <a name="modules--no-mutable-exports"></a>
-  - [10.5](#modules--no-mutable-exports) Do not export mutable bindings.
- eslint: [`import/no-mutable-exports`](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-mutable-exports.md)
-    > Why? Mutation should be avoided in general, but in particular when exporting mutable bindings. While this technique may be needed for some special cases, in general, only constant references should be exported.
-
-    ```javascript
-    // bad
-    let foo = 3;
-    export { foo };
-
-    // good
-    const foo = 3;
-    export { foo };
-    ```
-
-  <a name="modules--prefer-default-export"></a>
-  - [10.6](#modules--prefer-default-export) In modules with a single export, prefer default export over named export.
- eslint: [`import/prefer-default-export`](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/prefer-default-export.md)
-
-    ```javascript
-    // bad
-    export function foo() {}
-
-    // good
-    export default function foo() {}
-    ```
-
-  <a name="modules--imports-first"></a>
-  - [10.7](#modules--imports-first) Put all `import`s above non-import statements.
- eslint: [`import/first`](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/first.md)
+  <a name="modules--imports-first"></a><a name="10.3"></a>
+  - [10.3](#modules--imports-first) Put all `import`s above non-import statements.
     > Why? Since `import`s are hoisted, keeping them all at the top prevents surprising behavior.
 
-    ```javascript
-    // bad
-    import foo from 'foo';
-    foo.init();
+    ```python
+    # bad
+    import a_module
+    from b_module import foo
+    foo.init()
 
-    import bar from 'bar';
+    from c_module import bar
 
-    // good
-    import foo from 'foo';
-    import bar from 'bar';
+    # good
+    import a_module
+    from b_module import foo
+    from c_module import bar
 
     foo.init();
     ```
 
-  <a name="modules--multiline-imports-over-newlines"></a>
-  - [10.8](#modules--multiline-imports-over-newlines) Multiline imports should be indented just like multiline array and object literals.
+  <a name="modules--imports-sorted"></a><a name="10.4"></a>
+  - [10.4](#modules--imports-sorted) Sort the `import`s by `import` then `from`, and sort alphabetically.
+    > Why? `import` are often more generic that `from`; sort to ease manual inspection and for maintainability.
 
-    > Why? The curly braces follow the same indentation rules as every other curly brace block in the style guide, as do the trailing commas.
+    ```python
+    # bad
+    from a_module import foo
+    import e_module
+    import b_module
+    from c_module import c_fn, b_fn
 
-    ```javascript
-    // bad
-    import {longNameA, longNameB, longNameC, longNameD, longNameE} from 'path';
-
-    // good
-    import {
-      longNameA,
-      longNameB,
-      longNameC,
-      longNameD,
-      longNameE,
-    } from 'path';
+    # good
+    import b_module
+    import e_module
+    from a_module import foo
+    from c_module import b_fn, c_fn
     ```
 
-  <a name="modules--no-webpack-loader-syntax"></a>
-  - [10.9](#modules--no-webpack-loader-syntax) Disallow Webpack loader syntax in module import statements.
- eslint: [`import/no-webpack-loader-syntax`](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-webpack-loader-syntax.md)
-    > Why? Since using Webpack syntax in the imports couples the code to a module bundler. Prefer using the loader syntax in `webpack.config.js`.
+  <a name="modules--multiline-imports-over-newlines"></a><a name="10.5"></a>
+  - [10.5](#modules--multiline-imports-over-newlines) Multiline imports should be indented just like multiline list and dictionary literals.
 
-    ```javascript
-    // bad
-    import fooSass from 'css!sass!foo.scss';
-    import barCss from 'style!css!bar.css';
+    > Why? The parentheses follow the same indentation rules as every other bracket or brace block in the style guide, as do the trailing commas.
 
-    // good
-    import fooSass from 'foo.scss';
-    import barCss from 'bar.css';
+    ```python
+    # bad
+    from a_module import long_name_a, long_name_b, long_name_c, long_name_d
+
+    # good
+    from a_module import (
+      long_name_a,
+      long_name_b,
+      long_name_c,
+      long_name_d,
+    )
     ```
 
 **[⬆ back to top](#table-of-contents)**
