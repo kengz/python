@@ -11,7 +11,7 @@ Other Style Guides
 
   1. [Types](#types)
   1. [References](#references)
-  1. [Objects](#objects)
+  1. [Dictionaries](#dictionaties)
   1. [Arrays](#arrays)
   1. [Destructuring](#destructuring)
   1. [Strings](#strings)
@@ -85,61 +85,60 @@ Other Style Guides
     > Why? This ensures that you can’t reassign your references, which can lead to bugs and difficult to comprehend code.
 
     ```python
-    // bad
+    # bad
     foo = 1
     bar = 2
 
-    // good
+    # good
     FOO = 1
     BAR = 2
     ```
 
 **[⬆ back to top](#table-of-contents)**
 
-## Objects
+## Dictionaries
 
-  <a name="objects--no-new"></a><a name="3.1"></a>
-  - [3.1](#objects--no-new) Use the literal syntax for object creation. eslint: [`no-new-object`](http://eslint.org/docs/rules/no-new-object.html)
+  <a name="dictionaries--no-new"></a><a name="3.1"></a>
+  - [3.1](#dictionaries--no-new) Use the literal syntax for dictionary creation.
 
-    ```javascript
-    // bad
-    const item = new Object();
+    ```python
+    # bad
+    item = dict()
 
-    // good
-    const item = {};
+    # good
+    item = {}
     ```
 
-  <a name="es6-computed-properties"></a><a name="3.4"></a>
-  - [3.2](#es6-computed-properties) Use computed property names when creating objects with dynamic property names.
+  <a name="computed-key"></a><a name="3.4"></a>
+  - [3.2](#computed-key) Use computed key names when creating dictionaries with dynamic key names.
 
-    > Why? They allow you to define all the properties of an object in one place.
+    > Why? They allow you to define all the key of a dictionary in one place.
 
-    ```javascript
+    ```python
 
-    function getKey(k) {
-      return `a key named ${k}`;
+    def get_key(k):
+        return f'a key named {k}'
+
+    # bad
+    obj = {
+      'id': 5,
+      'name': 'San Francisco',
     }
+    obj[get_key('enabled')] = True
 
-    // bad
-    const obj = {
-      id: 5,
-      name: 'San Francisco',
-    };
-    obj[getKey('enabled')] = true;
-
-    // good
-    const obj = {
-      id: 5,
-      name: 'San Francisco',
-      [getKey('enabled')]: true,
-    };
+    # good
+    obj = {
+      'id': 5,
+      'name': 'San Francisco',
+      get_key('enabled'): True,
+    }
     ```
 
-  <a name="es6-object-shorthand"></a><a name="3.5"></a>
-  - [3.3](#es6-object-shorthand) Use object method shorthand. eslint: [`object-shorthand`](http://eslint.org/docs/rules/object-shorthand.html) jscs: [`requireEnhancedObjectLiterals`](http://jscs.info/rule/requireEnhancedObjectLiterals)
+  <a name="dictionary-shorthand"></a><a name="3.5"></a>
+  - [3.3](#dictionary-shorthand) Use object method shorthand.
 
-    ```javascript
-    // bad
+    ```python
+    # bad
     const atom = {
       value: 1,
 
@@ -148,7 +147,7 @@ Other Style Guides
       },
     };
 
-    // good
+    # good
     const atom = {
       value: 1,
 
