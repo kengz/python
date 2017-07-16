@@ -1415,23 +1415,33 @@ Other Style Guides
 
 ## Testing
 
-  <a name="testing--yup"></a><a name="28.1"></a>
-  - [29.1](#testing--yup) **Yup.**
+  <a name="testing--yup"></a><a name="17.1"></a>
+  - [17.1](#testing--yup) **Yup.**
 
-    ```javascript
-    function foo() {
-      return true;
-    }
-    ```
-
-  <a name="testing--for-real"></a><a name="28.2"></a>
-  - [29.2](#testing--for-real) **No, but seriously**:
+  <a name="testing--for-real"></a><a name="17.2"></a>
+  - [17.2](#testing--for-real) **No, but seriously**:
     - Whichever testing framework you use, you should be writing tests!
     - Strive to write many small pure functions, and minimize where mutations occur.
+    - Write tests as you develop instead of piling them up for later. Fix problems early on, otherwise they will compound.
     - Be cautious about stubs and mocks - they can make your tests more brittle.
-    - We primarily use [`mocha`](https://www.npmjs.com/package/mocha) at Airbnb. [`tape`](https://www.npmjs.com/package/tape) is also used occasionally for small, separate modules.
+    - Avoid side effects to your development/production code/assets. Setup a separate database and set of assets for testing.
     - 100% test coverage is a good goal to strive for, even if it’s not always practical to reach it.
     - Whenever you fix a bug, _write a regression test_. A bug fixed without a regression test is almost certainly going to break again in the future.
+
+  <a name="testing--direct-assertation"></a><a name="17.3"></a>
+  - [17.3](#testing--direct-assertation) Use direct assertations and explicit comparisons; avoid negations.
+
+    > Why? Make the expected result for comparison explicit and avoid any implicit type conversion.
+
+    ```python
+    # bad - Other values can be falsy too: `[], 0, '', None`
+    assert not result
+    assert result_list
+
+    # good
+    assert result == False
+    assert len(result_list) > 0
+    ```
 
 **[⬆ back to top](#table-of-contents)**
 
