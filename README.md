@@ -752,153 +752,101 @@ Other Style Guides
 
 ## Comparison Operators & Equality
 
-  <a name="comparison--eqeqeq"></a><a name="15.1"></a>
-  - [15.1](#comparison--eqeqeq) Use `===` and `!==` over `==` and `!=`. eslint: [`eqeqeq`](http://eslint.org/docs/rules/eqeqeq.html)
+  
+  <a name="comparison--concise"></a><a name="12.1"></a>
+  - [12.1](#comparison--concise) Use concise boolean conditionals, refactor long compound statements.
 
-  <a name="comparison--if"></a><a name="15.2"></a>
-  - [15.2](#comparison--if) Conditional statements such as the `if` statement evaluate their expression using coercion with the `ToBoolean` abstract method and always follow these simple rules:
+    > Why? Long boolean statements are hard to read and understand.
 
-    - **Objects** evaluate to **true**
-    - **Undefined** evaluates to **false**
-    - **Null** evaluates to **false**
-    - **Booleans** evaluate to **the value of the boolean**
-    - **Numbers** evaluate to **false** if **+0, -0, or NaN**, otherwise **true**
-    - **Strings** evaluate to **false** if an empty string `''`, otherwise **true**
+    ```python
+    # bad
+    if (can_move_x() and can_move_y() or is_light() or is_dry() or has_high_drag()):
+        execute_operation_tumbleweed()
+    else:
+        execute_operation_cactus()
 
-    ```javascript
-    if ([0] && []) {
-      // true
-      // an array (even an empty one) is an object, objects will evaluate to true
-    }
+    # good
+    can_move = can_move_x() and can_move_y()
+    movable = is_light() or is_dry() or has_high_drag()
+    if (can_move or movable):
+        execute_operation_tumbleweed()
+    else:
+        execute_operation_cactus()
     ```
 
-  <a name="comparison--shortcuts"></a><a name="15.3"></a>
-  - [15.3](#comparison--shortcuts) Use shortcuts for booleans, but explicit comparisons for strings and numbers.
+  <a name="comparison--direct"></a><a name="12.2"></a>
+  - [12.2](#comparison--direct) Be direct with booleans, avoid unnecessary negations.
 
-    ```javascript
-    // bad
-    if (isValid === true) {
-      // ...
-    }
+    > Why? Negations are harder to understand and longer to write.
 
-    // good
-    if (isValid) {
-      // ...
-    }
+    ```python
+    # bad
+    if not a_is_legal():
+        do_b()
+    else:
+        do_a()
 
-    // bad
-    if (name) {
-      // ...
-    }
-
-    // good
-    if (name !== '') {
-      // ...
-    }
-
-    // bad
-    if (collection.length) {
-      // ...
-    }
-
-    // good
-    if (collection.length > 0) {
-      // ...
-    }
+    # good
+    if a_is_legal():
+        do_a()
+    else:
+        do_b()
     ```
 
-  <a name="comparison--moreinfo"></a><a name="15.4"></a>
-  - [15.4](#comparison--moreinfo) For more information see [Truth Equality and JavaScript](https://javascriptweblog.wordpress.com/2011/02/07/truth-equality-and-javascript/#more-2108) by Angus Croll.
+  <a name="comparison--shortcuts"></a><a name="12.3"></a>
+  - [12.3](#comparison--shortcuts) Use shortcuts for booleans, but explicit comparisons for strings and numbers.
 
-  <a name="comparison--switch-blocks"></a><a name="15.5"></a>
-  - [15.5](#comparison--switch-blocks) Use braces to create blocks in `case` and `default` clauses that contain lexical declarations (e.g. `let`, `const`, `function`, and `class`).
+    ```python
+    # bad
+    if is_valid == true:
+        # ...
 
-    > Why? Lexical declarations are visible in the entire `switch` block but only get initialized when assigned, which only happens when its `case` is reached. This causes problems when multiple `case` clauses attempt to define the same thing.
+    # good
+    if is_valid:
+        # ...
 
-    eslint rules: [`no-case-declarations`](http://eslint.org/docs/rules/no-case-declarations.html).
+    # bad
+    if name:
+        # ...
 
-    ```javascript
-    // bad
-    switch (foo) {
-      case 1:
-        let x = 1;
-        break;
-      case 2:
-        const y = 2;
-        break;
-      case 3:
-        function f() {
-          // ...
-        }
-        break;
-      default:
-        class C {}
-    }
+    # good
+    if name != '':
+        # ...
 
-    // good
-    switch (foo) {
-      case 1: {
-        let x = 1;
-        break;
-      }
-      case 2: {
-        const y = 2;
-        break;
-      }
-      case 3: {
-        function f() {
-          // ...
-        }
-        break;
-      }
-      case 4:
-        bar();
-        break;
-      default: {
-        class C {}
-      }
-    }
+    # bad
+    if len(a_list):
+        # ...
+
+    # good
+    if len(a_list) > 0:
+        # ...
     ```
 
-  <a name="comparison--nested-ternaries"></a><a name="15.6"></a>
-  - [15.6](#comparison--nested-ternaries) Ternaries should not be nested and generally be single line expressions.
+  <a name="comparison--nested-ternaries"></a><a name="12.4"></a>
+  - [12.4](#comparison--nested-ternaries) Ternaries should not be nested and generally be single line expressions.
 
-    eslint rules: [`no-nested-ternary`](http://eslint.org/docs/rules/no-nested-ternary.html).
-
-    ```javascript
-    // bad
-    const foo = maybe1 > maybe2
-      ? "bar"
-      : value1 > value2 ? "baz" : null;
-
-    // better
-    const maybeNull = value1 > value2 ? 'baz' : null;
-
-    const foo = maybe1 > maybe2
-      ? 'bar'
-      : maybeNull;
+    ```python
+    # bad
+    foo = 'bar' if maybe_1 > maybe_2 else 'baz' if value_1 > value_2 else None
 
     // best
-    const maybeNull = value1 > value2 ? 'baz' : null;
-
-    const foo = maybe1 > maybe2 ? 'bar' : maybeNull;
+    maybe_none = 'baz' if value1 > value2 else None
+    foo = 'bar' if maybe1 > maybe2 else maybe_none
     ```
 
-  <a name="comparison--unneeded-ternary"></a><a name="15.7"></a>
-  - [15.7](#comparison--unneeded-ternary) Avoid unneeded ternary statements.
+  <a name="comparison--unneeded-ternary"></a><a name="12.5"></a>
+  - [12.5](#comparison--unneeded-ternary) Avoid unneeded ternary statements.
 
-    eslint rules: [`no-unneeded-ternary`](http://eslint.org/docs/rules/no-unneeded-ternary.html).
+    ```python
+    # bad
+    foo = a if a else b
+    bar = true if c else false
+    baz = false if c else true
 
-    ```javascript
-    // bad
-    const foo = a ? a : b;
-    const bar = c ? true : false;
-    const baz = c ? false : true;
-
-    // good
-    const foo = a || b;
-    const bar = !!c;
-    const baz = !c;
+    # good
+    foo = a or b
+    bar = c
+    baz = not c
     ```
 
 **[⬆ back to top](#table-of-contents)**
