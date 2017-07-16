@@ -1123,18 +1123,18 @@ Other Style Guides
 
     ```python
     # bad
-    foo = nested_object && nested_object.foo && nested_object.foo.bar && nested_object.foo.bar.baz && nested_object.foo.bar.baz.quux && nested_object.foo.bar.baz.quux.xyzzy
+    foo = nested_object and nested_object.foo and nested_object.foo.bar and nested_object.foo.bar.baz and nested_object.foo.bar.baz.quux and nested_object.foo.bar.baz.quux.xyzzy
 
     # bad
     http_call({'method': 'POST', 'url': 'https://airbnb.com/', 'data': {name: 'John', 'age': 20}})
 
     # good
-    foo = nested_object
-      && nested_object.foo
-      && nested_object.foo.bar
-      && nested_object.foo.bar.baz
-      && nested_object.foo.bar.baz.quux
-      && nested_object.foo.bar.baz.quux.xyzzy
+    foo = (nested_object and
+        nested_object.foo and
+        nested_object.foo.bar and
+        nested_object.foo.bar.baz and
+        nested_object.foo.bar.baz.quux and
+        nested_object.foo.bar.baz.quux.xyzzy)
 
     # good
     http_call({
