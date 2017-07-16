@@ -1399,14 +1399,16 @@ Other Style Guides
   <a name="naming--abbreviations"></a><a name="16.7"></a>
   - [16.7](#naming--abbreviations) Use abbreviations if they are clear and make for more readable and writable code.
 
-    > Why? Names are humans, so always make code readable and easy to spell.
+    > Why? Names are for humans, so always make code readable and easy to spell.
 
     ```python
     # bad
     flight_prerequisites_checklist = ['landing gear', 'engine', 'flaps']
+    initialize_flight(flight_prerequisites_checklist)
 
     # good
     flight_prereq_checklist = ['landing gear', 'engine', 'flaps']
+    init_flight(flight_prereq_checklist)
     ```
 
 **[⬆ back to top](#table-of-contents)**
