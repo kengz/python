@@ -11,7 +11,7 @@ Other Style Guides
 
   1. [Types](#types)
   1. [References](#references)
-  1. [Dictionaries](#dictionaties)
+  1. [Dictionaries](#dictionaries)
   1. [Lists](#lists)
   1. [Destructuring](#destructuring)
   1. [Strings](#strings)
