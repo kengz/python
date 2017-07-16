@@ -1124,135 +1124,132 @@ Other Style Guides
 
 ## Commas
 
-<a name="commas--leading-trailing"></a><a name="19.1"></a>
-  - [20.1](#commas--leading-trailing) Leading commas: **Nope.** eslint: [`comma-style`](http://eslint.org/docs/rules/comma-style.html) jscs: [`requireCommaBeforeLineBreak`](http://jscs.info/rule/requireCommaBeforeLineBreak)
+<a name="commas--leading-trailing"></a><a name="15.1"></a>
+  - [15.1](#commas--leading-trailing) Leading commas: **Nope.**
 
-    ```javascript
-    // bad
-    const story = [
-        once
-      , upon
-      , aTime
-    ];
+    ```python
+    # bad
+    story = [
+          once
+        , upon
+        , a_time
+    ]
+
+    # good
+    story = [
+        once,
+        upon,
+        a_time,
+    ]
+
+    # bad
+    hero = {
+        'first_name': 'Ada'
+        , 'last_name': 'Lovelace'
+        , 'birth_year': 1815
+        , 'super_power': 'computers'
+    }
 
     // good
-    const story = [
-      once,
-      upon,
-      aTime,
-    ];
-
-    // bad
-    const hero = {
-        firstName: 'Ada'
-      , lastName: 'Lovelace'
-      , birthYear: 1815
-      , superPower: 'computers'
-    };
-
-    // good
-    const hero = {
-      firstName: 'Ada',
-      lastName: 'Lovelace',
-      birthYear: 1815,
-      superPower: 'computers',
-    };
+    hero = {
+        'first_name': 'Ada',
+        'last_name': 'Lovelace',
+        'birth_year': 1815,
+        'super_power': 'computers',
+    }
     ```
 
   <a name="commas--dangling"></a><a name="19.2"></a>
-  - [20.2](#commas--dangling) Additional trailing comma: **Yup.** eslint: [`comma-dangle`](http://eslint.org/docs/rules/comma-dangle.html) jscs: [`requireTrailingComma`](http://jscs.info/rule/requireTrailingComma)
+  - [20.2](#commas--dangling) Additional trailing comma: **Yup.**
 
-    > Why? This leads to cleaner git diffs. Also, transpilers like Babel will remove the additional trailing comma in the transpiled code which means you don’t have to worry about the [trailing comma problem](https://github.com/airbnb/javascript/blob/es5-deprecated/es5/README.md#commas) in legacy browsers.
+    > Why? This leads to cleaner git diffs during code change.
 
     ```diff
-    // bad - git diff without trailing comma
-    const hero = {
-         firstName: 'Florence',
-    -    lastName: 'Nightingale'
-    +    lastName: 'Nightingale',
-    +    inventorOf: ['coxcomb chart', 'modern nursing']
-    };
+    # bad - git diff without trailing comma
+    hero = {
+         'first_name': 'Ada',
+    -    'last_name': 'Lovelace'
+    +    'last_name': 'Lovelace',
+    +    'super_power': 'computers',
+    }
 
-    // good - git diff with trailing comma
-    const hero = {
-         firstName: 'Florence',
-         lastName: 'Nightingale',
-    +    inventorOf: ['coxcomb chart', 'modern nursing'],
-    };
+    # good - git diff with trailing comma
+    hero = {
+         'first_name': 'Ada',
+         'last_name': 'Lovelace',
+    +    'super_power': 'computers',
+    }
     ```
 
-    ```javascript
-    // bad
-    const hero = {
-      firstName: 'Dana',
-      lastName: 'Scully'
-    };
-
-    const heroes = [
-      'Batman',
-      'Superman'
-    ];
-
-    // good
-    const hero = {
-      firstName: 'Dana',
-      lastName: 'Scully',
-    };
-
-    const heroes = [
-      'Batman',
-      'Superman',
-    ];
-
-    // bad
-    function createHero(
-      firstName,
-      lastName,
-      inventorOf
-    ) {
-      // does nothing
+    ```python
+    # bad
+    hero = {
+        'first_name': 'Ada',
+        'last_name': 'Lovelace'
     }
 
-    // good
-    function createHero(
-      firstName,
-      lastName,
-      inventorOf,
-    ) {
-      // does nothing
+    heroes = [
+        'Batman',
+        'Superman'
+    ]
+
+    # good
+    hero = {
+        'first_name': 'Ada',
+        'last_name': 'Lovelace',
     }
 
-    // good (note that a comma must not appear after a "rest" element)
-    function createHero(
-      firstName,
-      lastName,
-      inventorOf,
-      ...heroArgs
-    ) {
-      // does nothing
-    }
+    heroes = [
+        'Batman',
+        'Superman',
+    ]
 
-    // bad
-    createHero(
-      firstName,
-      lastName,
-      inventorOf
-    );
+    # bad
+    def create_hero(
+        first_name,
+        last_name,
+        superpower
+    ):
+        # ...
 
-    // good
-    createHero(
-      firstName,
-      lastName,
-      inventorOf,
-    );
+    # good
+    def create_hero(
+        first_name,
+        last_name,
+        superpower,
+    ):
+        # ...
 
-    // good (note that a comma must not appear after a "rest" element)
-    createHero(
-      firstName,
-      lastName,
-      inventorOf,
-      ...heroArgs
-    );
+    # good - note that a comma must not appear after a "spread" element
+    def create_hero(
+        first_name,
+        last_name,
+        superpower,
+        **kwargs
+    ):
+        # ...
+
+    # bad
+    create_hero(
+        first_name,
+        last_name,
+        superpower
+    )
+
+    # good
+    create_hero(
+        first_name,
+        last_name,
+        superpower,
+    )
+
+    // good - note that a comma must not appear after a "spread" element
+    create_hero(
+        first_name,
+        last_name,
+        superpower,
+        **kwargs
+    )
     ```
 
 **[⬆ back to top](#table-of-contents)**
