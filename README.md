@@ -723,6 +723,31 @@ Other Style Guides
             list_counter += len(list)
     ```
 
+  <a name="variables--underscore-unused"></a><a name="11.5"></a>
+  - [11.5](#variables--underscore-unused) Prepend underscore `_` when naming variables that are unused. Also a part of PEP8.
+
+    > Why? To be aware of data usage and side effects.
+
+    ```python
+    # bad
+    first, unused, last = [1, 2, 3]
+
+    # bad - finder is not used though expected to be
+    for finder, replacer in some_map.items():
+        do_something_without_key(replacer)
+
+    # bad - lose track of what the first key is
+    for _, replacer in some_map.items():
+        do_something_without_key(replacer)
+
+    # good
+    first, _unused, last = [1, 2, 3]
+
+    # good - we know what the variable is, and it is unused
+    for _finder, replacer in some_map.items():
+        do_something_without_key(replacer)
+    ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Comparison Operators & Equality
