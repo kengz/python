@@ -503,6 +503,30 @@ Other Style Guides
         # ...
     ```
 
+  <a name="functions--clear-logic"></a><a name="7.6"></a>
+  - [7.6](#functions--clear-logic) Break down code logic into digestible chunks, and refactor a lot.
+
+    > Why? Other programmers and your future self will thank you for writing understandable code.
+
+    ```python
+    # bad - short but extremely confusing
+    def long_logic():
+        return [a for a in small_list for small_list in large_matrix if len(small_list) else ['replacement'] if len(a) > 2]
+
+    # good - longer but very clear
+    def long_logic():
+        result = []
+        for small_list in large_matrix:
+            if len(small_list) > 0:
+                used_list = small_list
+            else:
+                used_list = ['replacement']
+            for a in used_list:
+                if len(a) > 2:
+                    result.append(a)
+        return result
+    ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Classes & Constructors
