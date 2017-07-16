@@ -21,8 +21,6 @@ Other Style Guides
   1. [Iterators and Generators](#iterators-and-generators)
   1. [Variables](#variables)
   1. [Comparison Operators & Equality](#comparison-operators--equality)
-  1. [Blocks](#blocks)
-  1. [Control Statements](#control-statements)
   1. [Comments](#comments)
   1. [Whitespace](#whitespace)
   1. [Commas](#commas)
@@ -840,8 +838,8 @@ Other Style Guides
     ```python
     # bad
     foo = a if a else b
-    bar = true if c else false
-    baz = false if c else true
+    bar = True if c else False
+    baz = False if c else True
 
     # good
     foo = a or b
@@ -851,575 +849,277 @@ Other Style Guides
 
 **[⬆ back to top](#table-of-contents)**
 
-## Blocks
-
-  <a name="blocks--braces"></a><a name="16.1"></a>
-  - [16.1](#blocks--braces) Use braces with all multi-line blocks.
-
-    ```javascript
-    // bad
-    if (test)
-      return false;
-
-    // good
-    if (test) return false;
-
-    // good
-    if (test) {
-      return false;
-    }
-
-    // bad
-    function foo() { return false; }
-
-    // good
-    function bar() {
-      return false;
-    }
-    ```
-
-  <a name="blocks--cuddled-elses"></a><a name="16.2"></a>
-  - [16.2](#blocks--cuddled-elses) If you're using multi-line blocks with `if` and `else`, put `else` on the same line as your `if` block’s closing brace. eslint: [`brace-style`](http://eslint.org/docs/rules/brace-style.html) jscs:  [`disallowNewlineBeforeBlockStatements`](http://jscs.info/rule/disallowNewlineBeforeBlockStatements)
-
-    ```javascript
-    // bad
-    if (test) {
-      thing1();
-      thing2();
-    }
-    else {
-      thing3();
-    }
-
-    // good
-    if (test) {
-      thing1();
-      thing2();
-    } else {
-      thing3();
-    }
-    ```
-
-**[⬆ back to top](#table-of-contents)**
-
-## Control Statements
-
-  <a name="control-statements"></a>
-  - [17.1](#control-statements) In case your control statement (`if`, `while` etc.) gets too long or exceeds the maximum line length, each (grouped) condition could be put into a new line. It’s up to you whether the logical operator should begin or end the line.
-
-    ```javascript
-    // bad
-    if ((foo === 123 || bar === 'abc') && doesItLookGoodWhenItBecomesThatLong() && isThisReallyHappening()) {
-      thing1();
-    }
-
-    // bad
-    if (foo === 123 &&
-      bar === 'abc') {
-      thing1();
-    }
-
-    // bad
-    if (foo === 123
-      && bar === 'abc') {
-      thing1();
-    }
-
-    // good
-    if (
-      (foo === 123 || bar === "abc") &&
-      doesItLookGoodWhenItBecomesThatLong() &&
-      isThisReallyHappening()
-    ) {
-      thing1();
-    }
-
-    // good
-    if (foo === 123 && bar === 'abc') {
-      thing1();
-    }
-
-    // good
-    if (
-      foo === 123 &&
-      bar === 'abc'
-    ) {
-      thing1();
-    }
-
-    // good
-    if (
-      foo === 123
-      && bar === 'abc'
-    ) {
-      thing1();
-    }
-    ```
-
-**[⬆ back to top](#table-of-contents)**
-
 ## Comments
 
-  <a name="comments--multiline"></a><a name="17.1"></a>
-  - [18.1](#comments--multiline) Use `/** ... */` for multi-line comments.
+  <a name="comments--multiline"></a><a name="13.1"></a>
+  - [13.1](#comments--multiline) Use `'''...'''` for multi-line comments.
 
-    ```javascript
-    // bad
-    // make() returns a new element
-    // based on the passed in tag name
-    //
-    // @param {String} tag
-    // @return {Element} element
-    function make(tag) {
+    ```python
+    # bad
+    def make(tag):
+        # make() returns a new element
+        # based on the passed in tag name
+        #
+        # @param {string} tag
+        # @return {Element} element
 
-      // ...
+        # ...
+        return element
 
-      return element;
-    }
+    # good
+    def make(tag):
+        '''
+        make() returns a new element
+        based on the passed in tag name
+        
+        @param {string} tag
+        @return {Element} element
+        '''
 
-    // good
-    /**
-     * make() returns a new element
-     * based on the passed-in tag name
-     */
-    function make(tag) {
-
-      // ...
-
-      return element;
-    }
+        # ...
+        return element
     ```
 
-  <a name="comments--singleline"></a><a name="17.2"></a>
-  - [18.2](#comments--singleline) Use `//` for single line comments. Place single line comments on a newline above the subject of the comment. Put an empty line before the comment unless it’s on the first line of a block.
+  <a name="comments--singleline"></a><a name="13.2"></a>
+  - [13.2](#comments--singleline) Use `#` for single line comments. Place single line comments on a newline above the subject of the comment. Put an empty line before the comment unless it’s on the first line of a block.
 
-    ```javascript
-    // bad
-    const active = true;  // is current tab
+    ```python
+    # bad
+    active = True  # is current tab
 
-    // good
-    // is current tab
-    const active = true;
+    # good
+    # is current tab
+    active = True
 
-    // bad
-    function getType() {
-      console.log('fetching type...');
-      // set the default type to 'no type'
-      const type = this.type || 'no type';
+    # bad
+    def get_type():
+        print('fetching type...')
+        # set the default type to 'no type'
+        type = self.type or 'no type'
 
-      return type;
-    }
+        return type
 
-    // good
-    function getType() {
-      console.log('fetching type...');
+    # good
+    def get_type():
+        print('fetching type...')
 
-      // set the default type to 'no type'
-      const type = this.type || 'no type';
+        # set the default type to 'no type'
+        type = self.type or 'no type'
 
-      return type;
-    }
+        return type
 
-    // also good
-    function getType() {
-      // set the default type to 'no type'
-      const type = this.type || 'no type';
+    # also good
+    def get_type():
+        # set the default type to 'no type'
+        type = self.type or 'no type'
 
-      return type;
-    }
+        return type
     ```
 
-  - [18.3](#comments--spaces) Start all comments with a space to make it easier to read. eslint: [`spaced-comment`](http://eslint.org/docs/rules/spaced-comment)
+  <a name="comments--spaces"></a><a name="13.3"></a>
+  - [13.3](#comments--spaces) Start all comments with a space to make it easier to read.
 
-    ```javascript
-    // bad
-    //is current tab
-    const active = true;
+    ```python
+    # bad
+    #is current tab
+    active = True
 
-    // good
-    // is current tab
-    const active = true;
-
-    // bad
-    /**
-     *make() returns a new element
-     *based on the passed-in tag name
-     */
-    function make(tag) {
-
-      // ...
-
-      return element;
-    }
-
-    // good
-    /**
-     * make() returns a new element
-     * based on the passed-in tag name
-     */
-    function make(tag) {
-
-      // ...
-
-      return element;
-    }
+    # good
+    # is current tab
+    active = True
     ```
 
-  <a name="comments--actionitems"></a><a name="17.3"></a>
-  - [18.4](#comments--actionitems) Prefixing your comments with `FIXME` or `TODO` helps other developers quickly understand if you're pointing out a problem that needs to be revisited, or if you're suggesting a solution to the problem that needs to be implemented. These are different than regular comments because they are actionable. The actions are `FIXME: -- need to figure this out` or `TODO: -- need to implement`.
+  <a name="comments--actionitems"></a><a name="13.4"></a>
+  - [13.4](#comments--actionitems) Prefixing your comments with `TODO` helps yourself and other developers be aware of items to revisit or implement. It keeps the issues visible and easy to find. These are different than regular comments because they are actionable.
 
-  <a name="comments--fixme"></a><a name="17.4"></a>
-  - [18.5](#comments--fixme) Use `// FIXME:` to annotate problems.
+    ```python
+    def complex_calculator():
+        compute_basic()
 
-    ```javascript
-    class Calculator extends Abacus {
-      constructor() {
-        super();
-
-        // FIXME: shouldn’t use a global here
-        total = 0;
-      }
-    }
-    ```
-
-  <a name="comments--todo"></a><a name="17.5"></a>
-  - [18.6](#comments--todo) Use `// TODO:` to annotate solutions to problems.
-
-    ```javascript
-    class Calculator extends Abacus {
-      constructor() {
-        super();
-
-        // TODO: total should be configurable by an options param
-        this.total = 0;
-      }
-    }
+        # TODO figure out improvements to the logic
+        return compute_core_logic()
     ```
 
 **[⬆ back to top](#table-of-contents)**
 
 ## Whitespace
 
-  <a name="whitespace--spaces"></a><a name="18.1"></a>
-  - [19.1](#whitespace--spaces) Use soft tabs (space character) set to 2 spaces. eslint: [`indent`](http://eslint.org/docs/rules/indent.html) jscs: [`validateIndentation`](http://jscs.info/rule/validateIndentation)
+  <a name="whitespace--spaces"></a><a name="14.1"></a>
+  - [14.1](#whitespace--spaces) Use soft tabs (space character) set to 4 spaces as per PEP8.
 
-    ```javascript
-    // bad
-    function foo() {
-    ∙∙∙∙let name;
-    }
+    ```python
+    # bad
+    def foo():
+    ∙∙return bar
 
-    // bad
-    function bar() {
-    ∙let name;
-    }
+    # bad
+    def foo():
+    ∙return bar
 
-    // good
-    function baz() {
-    ∙∙let name;
-    }
+    # good
+    def foo():
+    ∙∙∙∙return bar
     ```
 
-  <a name="whitespace--before-blocks"></a><a name="18.2"></a>
-  - [19.2](#whitespace--before-blocks) Place 1 space before the leading brace. eslint: [`space-before-blocks`](http://eslint.org/docs/rules/space-before-blocks.html) jscs: [`requireSpaceBeforeBlockStatements`](http://jscs.info/rule/requireSpaceBeforeBlockStatements)
+  <a name="whitespace--infix-ops"></a><a name="14.2"></a>
+  - [14.2](#whitespace--infix-ops) Set off operators with spaces.
 
-    ```javascript
-    // bad
-    function test(){
-      console.log('test');
-    }
+    ```python
+    # bad
+    x=y+5
 
-    // good
-    function test() {
-      console.log('test');
-    }
-
-    // bad
-    dog.set('attr',{
-      age: '1 year',
-      breed: 'Bernese Mountain Dog',
-    });
-
-    // good
-    dog.set('attr', {
-      age: '1 year',
-      breed: 'Bernese Mountain Dog',
-    });
+    # good
+    x = y + 5
     ```
 
-  <a name="whitespace--around-keywords"></a><a name="18.3"></a>
-  - [19.3](#whitespace--around-keywords) Place 1 space before the opening parenthesis in control statements (`if`, `while` etc.). Place no space between the argument list and the function name in function calls and declarations. eslint: [`keyword-spacing`](http://eslint.org/docs/rules/keyword-spacing.html) jscs: [`requireSpaceAfterKeywords`](http://jscs.info/rule/requireSpaceAfterKeywords)
+  <a name="whitespace--newline-at-end"></a><a name="14.3"></a>
+  - [14.3](#whitespace--newline-at-end) End files with a single newline character.
 
-    ```javascript
-    // bad
-    if(isJedi) {
-      fight ();
-    }
-
-    // good
-    if (isJedi) {
-      fight();
-    }
-
-    // bad
-    function fight () {
-      console.log ('Swooosh!');
-    }
-
-    // good
-    function fight() {
-      console.log('Swooosh!');
-    }
+    ```python
+    # bad
+    import util
+    # ...
+    def foo():
+        return bar
     ```
 
-  <a name="whitespace--infix-ops"></a><a name="18.4"></a>
-  - [19.4](#whitespace--infix-ops) Set off operators with spaces. eslint: [`space-infix-ops`](http://eslint.org/docs/rules/space-infix-ops.html) jscs: [`requireSpaceBeforeBinaryOperators`](http://jscs.info/rule/requireSpaceBeforeBinaryOperators), [`requireSpaceAfterBinaryOperators`](http://jscs.info/rule/requireSpaceAfterBinaryOperators)
-
-    ```javascript
-    // bad
-    const x=y+5;
-
-    // good
-    const x = y + 5;
-    ```
-
-  <a name="whitespace--newline-at-end"></a><a name="18.5"></a>
-  - [19.5](#whitespace--newline-at-end) End files with a single newline character. eslint: [`eol-last`](https://github.com/eslint/eslint/blob/master/docs/rules/eol-last.md)
-
-    ```javascript
-    // bad
-    import { es6 } from './AirbnbStyleGuide';
-      // ...
-    export default es6;
-    ```
-
-    ```javascript
-    // bad
-    import { es6 } from './AirbnbStyleGuide';
-      // ...
-    export default es6;↵
+    ```python
+    # bad
+    import util
+    # ...
+    def foo():
+        return bar↵
     ↵
     ```
 
-    ```javascript
-    // good
-    import { es6 } from './AirbnbStyleGuide';
-      // ...
-    export default es6;↵
+    ```python
+    # bad
+    import util
+    # ...
+    def foo():
+        return bar↵
     ```
 
-  <a name="whitespace--chains"></a><a name="18.6"></a>
-  - [19.6](#whitespace--chains) Use indentation when making long method chains (more than 2 method chains). Use a leading dot, which
-    emphasizes that the line is a method call, not a new statement. eslint: [`newline-per-chained-call`](http://eslint.org/docs/rules/newline-per-chained-call) [`no-whitespace-before-property`](http://eslint.org/docs/rules/no-whitespace-before-property)
+  <a name="whitespace--after-blocks"></a><a name="14.4"></a>
+  - [14.4](#whitespace--after-blocks) Leave a blank line after blocks and before the next statement.
 
-    ```javascript
-    // bad
-    $('#items').find('.selected').highlight().end().find('.open').updateCount();
+    ```python
+    # bad
+    if foo:
+        return bar
+    return baz
 
-    // bad
-    $('#items').
-      find('.selected').
-        highlight().
-        end().
-      find('.open').
-        updateCount();
+    # good
+    if foo:
+        return bar
 
-    // good
-    $('#items')
-      .find('.selected')
-        .highlight()
-        .end()
-      .find('.open')
-        .updateCount();
+    return baz
 
-    // bad
-    const leds = stage.selectAll('.led').data(data).enter().append('svg:svg').classed('led', true)
-        .attr('width', (radius + margin) * 2).append('svg:g')
-        .attr('transform', `translate(${radius + margin},${radius + margin})`)
-        .call(tron.led);
+    # bad
+    results = [
+        fn_1(),
+        fn_2(),
+    ]
+    return results
 
-    // good
-    const leds = stage.selectAll('.led')
-        .data(data)
-      .enter().append('svg:svg')
-        .classed('led', true)
-        .attr('width', (radius + margin) * 2)
-      .append('svg:g')
-        .attr('transform', `translate(${radius + margin},${radius + margin})`)
-        .call(tron.led);
+    # good
+    results = [
+        fn_1(),
+        fn_2(),
+    ]
 
-    // good
-    const leds = stage.selectAll('.led').data(data);
+    return results
     ```
 
-  <a name="whitespace--after-blocks"></a><a name="18.7"></a>
-  - [19.7](#whitespace--after-blocks) Leave a blank line after blocks and before the next statement. jscs: [`requirePaddingNewLinesAfterBlocks`](http://jscs.info/rule/requirePaddingNewLinesAfterBlocks)
+  <a name="whitespace--padded-blocks"></a><a name="14.5"></a>
+  - [14.5](#whitespace--padded-blocks) Do not pad your blocks with blank lines.
 
-    ```javascript
-    // bad
-    if (foo) {
-      return bar;
-    }
-    return baz;
+    ```python
+    # bad
+    def bar():
 
-    // good
-    if (foo) {
-      return bar;
-    }
+        print(foo)
 
-    return baz;
+    # bad
+    if (baz):
 
-    // bad
-    const obj = {
-      foo() {
-      },
-      bar() {
-      },
-    };
-    return obj;
+        print(qux)
+    else:
+        print(foo)
 
-    // good
-    const obj = {
-      foo() {
-      },
+    # good
+    def bar():
+        print(foo)
 
-      bar() {
-      },
-    };
-
-    return obj;
-
-    // bad
-    const arr = [
-      function foo() {
-      },
-      function bar() {
-      },
-    ];
-    return arr;
-
-    // good
-    const arr = [
-      function foo() {
-      },
-
-      function bar() {
-      },
-    ];
-
-    return arr;
+    # good
+    if (baz):
+        print(qux)
+    else:
+        print(foo)
     ```
 
-  <a name="whitespace--padded-blocks"></a><a name="18.8"></a>
-  - [19.8](#whitespace--padded-blocks) Do not pad your blocks with blank lines. eslint: [`padded-blocks`](http://eslint.org/docs/rules/padded-blocks.html) jscs:  [`disallowPaddingNewlinesInBlocks`](http://jscs.info/rule/disallowPaddingNewlinesInBlocks)
+  <a name="whitespace--in-parens"></a><a name="14.6"></a>
+  - [14.6](#whitespace--in-parens) Do not add spaces inside parentheses.
 
-    ```javascript
-    // bad
-    function bar() {
+    ```python
+    # bad
+    def bar( foo ):
+        return foo
 
-      console.log(foo);
+    # good
+    def bar(foo):
+        return foo
 
-    }
+    # bad
+    if ( foo and fux ):
+        print(foo)
 
-    // also bad
-    if (baz) {
-
-      console.log(qux);
-    } else {
-      console.log(foo);
-
-    }
-
-    // good
-    function bar() {
-      console.log(foo);
-    }
-
-    // good
-    if (baz) {
-      console.log(qux);
-    } else {
-      console.log(foo);
-    }
+    # good
+    if (foo and fux):
+        print(foo)
     ```
 
-  <a name="whitespace--in-parens"></a><a name="18.9"></a>
-  - [19.9](#whitespace--in-parens) Do not add spaces inside parentheses. eslint: [`space-in-parens`](http://eslint.org/docs/rules/space-in-parens.html) jscs: [`disallowSpacesInsideParentheses`](http://jscs.info/rule/disallowSpacesInsideParentheses)
+  <a name="whitespace--in-brackets"></a><a name="14.7"></a>
+  - [14.7](#whitespace--in-brackets) Do not add spaces inside brackets or braces.
 
-    ```javascript
-    // bad
-    function bar( foo ) {
-      return foo;
-    }
+    ```python
+    # bad
+    foo = [ 1, 2, 3 ]
+    print(foo[ 0 ])
+    bar = { 'a': 1 }
 
-    // good
-    function bar(foo) {
-      return foo;
-    }
-
-    // bad
-    if ( foo ) {
-      console.log(foo);
-    }
-
-    // good
-    if (foo) {
-      console.log(foo);
-    }
+    # good
+    foo = [1, 2, 3]
+    print(foo[0])
+    bar = {'a': 1}
     ```
 
-  <a name="whitespace--in-brackets"></a><a name="18.10"></a>
-  - [19.10](#whitespace--in-brackets) Do not add spaces inside brackets. eslint: [`array-bracket-spacing`](http://eslint.org/docs/rules/array-bracket-spacing.html) jscs: [`disallowSpacesInsideArrayBrackets`](http://jscs.info/rule/disallowSpacesInsideArrayBrackets)
-
-    ```javascript
-    // bad
-    const foo = [ 1, 2, 3 ];
-    console.log(foo[ 0 ]);
-
-    // good
-    const foo = [1, 2, 3];
-    console.log(foo[0]);
-    ```
-
-  <a name="whitespace--in-braces"></a><a name="18.11"></a>
-  - [19.11](#whitespace--in-braces) Add spaces inside curly braces. eslint: [`object-curly-spacing`](http://eslint.org/docs/rules/object-curly-spacing.html) jscs: [`requireSpacesInsideObjectBrackets`](http://jscs.info/rule/requireSpacesInsideObjectBrackets)
-
-    ```javascript
-    // bad
-    const foo = {clark: 'kent'};
-
-    // good
-    const foo = { clark: 'kent' };
-    ```
-
-  <a name="whitespace--max-len"></a><a name="18.12"></a>
-  - [19.12](#whitespace--max-len) Avoid having lines of code that are longer than 100 characters (including whitespace). Note: per [above](#strings--line-length), long strings are exempt from this rule, and should not be broken up. eslint: [`max-len`](http://eslint.org/docs/rules/max-len.html) jscs: [`maximumLineLength`](http://jscs.info/rule/maximumLineLength)
+  <a name="whitespace--max-len"></a><a name="14.8"></a>
+  - [14.8](#whitespace--max-len) Avoid having lines of code that are longer than 79 characters (including whitespace) as per PEP8. Note: per [above](#strings--line-length), long strings are exempt from this rule, and should not be broken up.
 
     > Why? This ensures readability and maintainability.
 
-    ```javascript
-    // bad
-    const foo = jsonData && jsonData.foo && jsonData.foo.bar && jsonData.foo.bar.baz && jsonData.foo.bar.baz.quux && jsonData.foo.bar.baz.quux.xyzzy;
+    ```python
+    # bad
+    foo = nested_object && nested_object.foo && nested_object.foo.bar && nested_object.foo.bar.baz && nested_object.foo.bar.baz.quux && nested_object.foo.bar.baz.quux.xyzzy
 
-    // bad
-    $.ajax({ method: 'POST', url: 'https://airbnb.com/', data: { name: 'John' } }).done(() => console.log('Congratulations!')).fail(() => console.log('You have failed this city.'));
+    # bad
+    http_call({'method': 'POST', 'url': 'https://airbnb.com/', 'data': {name: 'John', 'age': 20}})
 
-    // good
-    const foo = jsonData
-      && jsonData.foo
-      && jsonData.foo.bar
-      && jsonData.foo.bar.baz
-      && jsonData.foo.bar.baz.quux
-      && jsonData.foo.bar.baz.quux.xyzzy;
+    # good
+    foo = nested_object
+      && nested_object.foo
+      && nested_object.foo.bar
+      && nested_object.foo.bar.baz
+      && nested_object.foo.bar.baz.quux
+      && nested_object.foo.bar.baz.quux.xyzzy
 
-    // good
-    $.ajax({
-      method: 'POST',
-      url: 'https://airbnb.com/',
-      data: { name: 'John' },
+    # good
+    http_call({
+        'method': 'POST',
+        'url': 'https://airbnb.com/',
+        'data': {name: 'John', 'age': 20},
     })
-      .done(() => console.log('Congratulations!'))
-      .fail(() => console.log('You have failed this city.'));
     ```
 
 **[⬆ back to top](#table-of-contents)**
