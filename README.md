@@ -1159,8 +1159,8 @@ Other Style Guides
     }
     ```
 
-  <a name="commas--dangling"></a><a name="19.2"></a>
-  - [20.2](#commas--dangling) Additional trailing comma: **Yup.**
+  <a name="commas--dangling"></a><a name="15.2"></a>
+  - [15.2](#commas--dangling) Additional trailing comma: **Yup.**
 
     > Why? This leads to cleaner git diffs during code change.
 
@@ -1256,191 +1256,157 @@ Other Style Guides
 
 ## Naming Conventions
 
-  <a name="naming--descriptive"></a><a name="22.1"></a>
-  - [23.1](#naming--descriptive) Avoid single letter names. Be descriptive with your naming. eslint: [`id-length`](http://eslint.org/docs/rules/id-length)
+  <a name="naming--snake_case"></a><a name="16.1"></a>
+  - [16.1](#naming--snake_case) Use snake_case when naming variables, functions, and instances. Use it for file names too as they will be used in imports.
 
-    ```javascript
-    // bad
-    function q() {
-      // ...
-    }
+    ```python
+    # bad
+    import myModule
+    OBJEcttsssss = {}
+    thisIsMyObject = {}
+    def thisIsMyFunction():
 
-    // good
-    function query() {
-      // ...
-    }
+    # good
+    import my_module
+    objects = {}
+    this_is_my_object = {}
+    def this_is_my_function():
     ```
 
-  <a name="naming--camelCase"></a><a name="22.2"></a>
-  - [23.2](#naming--camelCase) Use camelCase when naming objects, functions, and instances. eslint: [`camelcase`](http://eslint.org/docs/rules/camelcase.html) jscs: [`requireCamelCaseOrUpperCaseIdentifiers`](http://jscs.info/rule/requireCamelCaseOrUpperCaseIdentifiers)
+  <a name="naming--PascalCase"></a><a name="16.2"></a>
+  - [16.2](#naming--PascalCase) Use PascalCase only when naming classes.
 
-    ```javascript
-    // bad
-    const OBJEcttsssss = {};
-    const this_is_my_object = {};
-    function c() {}
+    ```python
+    # bad
+    class prioritizedMemoryReplay():
+        # ...
 
-    // good
-    const thisIsMyObject = {};
-    function thisIsMyFunction() {}
+    memory = prioritizedMemoryReplay()
+
+    # good
+    class PrioritizedMemoryReplay():
+        # ...
+
+    memory = PrioritizedMemoryReplay()
     ```
 
-  <a name="naming--PascalCase"></a><a name="22.3"></a>
-  - [23.3](#naming--PascalCase) Use PascalCase only when naming constructors or classes. eslint: [`new-cap`](http://eslint.org/docs/rules/new-cap.html) jscs: [`requireCapitalizedConstructors`](http://jscs.info/rule/requireCapitalizedConstructors)
+  <a name="naming--descriptive"></a><a name="16.3"></a>
+  - [16.3](#naming--descriptive) Avoid single letter names. Use descriptive and meaningful names - tell what the function does, or what data type an object is. Use `description_object` instead of `object_description`.
 
-    ```javascript
-    // bad
-    function user(options) {
-      this.name = options.name;
-    }
+    ```python
+    # bad
+    def q():
+        # ...
 
-    const bad = new user({
-      name: 'nope',
-    });
+    # good
+    def query():
+        # ...
 
-    // good
-    class User {
-      constructor(options) {
-        this.name = options.name;
-      }
-    }
+    # bad - no convention to know what data type it is
+    df_raw_data = pd.DataFrame(some_data)
+    id_map_num = {'a': 1, 'b': 2}
 
-    const good = new User({
-      name: 'yup',
-    });
+    # good - convention to tell data type by the last term
+    raw_data_df = pd.DataFrame(some_data)
+    id_num_map = {'a': 1, 'b': 2}
+
+    # bad - meaningless names, lost context
+    LIST_1 = ['Jack', 'Alice', 'Emily']
+    # ... many lines of code later
+    for item in LIST_1:
+        register_human(item)
+
+    # good
+    NAME_LIST = ['Jack', 'Alice', 'Emily']
+    # ... many lines of code later
+    for name in NAME_LIST:
+        register_human(name)
     ```
 
-  <a name="naming--leading-underscore"></a><a name="22.4"></a>
-  - [23.4](#naming--leading-underscore) Do not use trailing or leading underscores. eslint: [`no-underscore-dangle`](http://eslint.org/docs/rules/no-underscore-dangle.html) jscs: [`disallowDanglingUnderscores`](http://jscs.info/rule/disallowDanglingUnderscores)
+  <a name="naming--distance"></a><a name="16.4"></a>
+  - [16.4](#naming--distance) Avoid using close naming to prevent typo and confusion.
 
-    > Why? JavaScript does not have the concept of privacy in terms of properties or methods. Although a leading underscore is a common convention to mean “private”, in fact, these properties are fully public, and as such, are part of your public API contract. This convention might lead developers to wrongly think that a change won’t count as breaking, or that tests aren’t needed. tl;dr: if you want something to be “private”, it must not be observably present.
+    ```python
+    # bad
+    objects = ['rock', 'paper', 'scissors']
+    for object in objects:
+        register_item(object)
+    close_box(objects)
 
-    ```javascript
-    // bad
-    this.__firstName__ = 'Panda';
-    this.firstName_ = 'Panda';
-    this._firstName = 'Panda';
+    # okay
+    objects = ['rock', 'paper', 'scissors']
+    for obj in objects:
+        register_item(obj)
+    close_box(objects)
 
-    // good
-    this.firstName = 'Panda';
+    # best
+    object_list = ['rock', 'paper', 'scissors']
+    for object in object_list:
+        register_item(object)
+    close_box(object_list)
     ```
 
-  <a name="naming--self-this"></a><a name="22.5"></a>
-  - [23.5](#naming--self-this) Don’t save references to `this`. Use arrow functions or [Function#bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind). jscs: [`disallowNodeTypes`](http://jscs.info/rule/disallowNodeTypes)
+  <a name="naming--singular"></a><a name="16.5"></a>
+  - [16.5](#naming--singular) Use singular or base words in naming; plurals may be used to clearly distinguish a collection from singleton.
 
-    ```javascript
-    // bad
-    function foo() {
-      const self = this;
-      return function () {
-        console.log(self);
-      };
-    }
+    > Why? To prevent inconsistencies and second-guesses when using variables.
 
-    // bad
-    function foo() {
-      const that = this;
-      return function () {
-        console.log(that);
-      };
-    }
+    ```python
+    # bad
+    def moves_object(x, y):
+        # ...
 
-    // good
-    function foo() {
-      return () => {
-        console.log(this);
-      };
-    }
+    # good
+    def move_object(x, y):
+        # ...
+
+    # bad - inconsistent naming for same data type and usage
+    teacher = ['Michael']
+    students = ['Jack', 'Alice', 'Emily']
+
+    for t in teacher:
+        register_human(t)
+
+    for student in students:
+        register_human(student)
+
+    # good
+    teacher_list = ['Michael']
+    student_list = ['Jack', 'Alice', 'Emily']
+
+    for teacher in teacher_list:
+        register_human(teacher)
+
+    for student in student_list:
+        register_human(student)
     ```
 
-  <a name="naming--filename-matches-export"></a><a name="22.6"></a>
-  - [23.6](#naming--filename-matches-export) A base filename should exactly match the name of its default export.
+  <a name="naming--singular-module"></a><a name="16.6"></a>
+  - [16.6](#naming--singular-module) Use singular naming for modules and source files.
 
-    ```javascript
-    // file 1 contents
-    class CheckBox {
-      // ...
-    }
-    export default CheckBox;
+    ```python
+    # bad
+    from commons import utils
 
-    // file 2 contents
-    export default function fortyTwo() { return 42; }
+    utils.read_string()
 
-    // file 3 contents
-    export default function insideDirectory() {}
+    # good
+    from common import util
 
-    // in some other file
-    // bad
-    import CheckBox from './checkBox'; // PascalCase import/export, camelCase filename
-    import FortyTwo from './FortyTwo'; // PascalCase import/filename, camelCase export
-    import InsideDirectory from './InsideDirectory'; // PascalCase import/filename, camelCase export
-
-    // bad
-    import CheckBox from './check_box'; // PascalCase import/export, snake_case filename
-    import forty_two from './forty_two'; // snake_case import/filename, camelCase export
-    import inside_directory from './inside_directory'; // snake_case import, camelCase export
-    import index from './inside_directory/index'; // requiring the index file explicitly
-    import insideDirectory from './insideDirectory/index'; // requiring the index file explicitly
-
-    // good
-    import CheckBox from './CheckBox'; // PascalCase export/import/filename
-    import fortyTwo from './fortyTwo'; // camelCase export/import/filename
-    import insideDirectory from './insideDirectory'; // camelCase export/import/directory name/implicit "index"
-    // ^ supports both insideDirectory.js and insideDirectory/index.js
+    util.read_string()
     ```
 
-  <a name="naming--camelCase-default-export"></a><a name="22.7"></a>
-  - [23.7](#naming--camelCase-default-export) Use camelCase when you export-default a function. Your filename should be identical to your function’s name.
+  <a name="naming--abbreviations"></a><a name="16.7"></a>
+  - [16.7](#naming--abbreviations) Use abbreviations if they are clear and make for more readable and writable code.
 
-    ```javascript
-    function makeStyleGuide() {
-      // ...
-    }
+    > Why? Names are humans, so always make code readable and easy to spell.
 
-    export default makeStyleGuide;
-    ```
+    ```python
+    # bad
+    flight_prerequisites_checklist = ['landing gear', 'engine', 'flaps']
 
-  <a name="naming--PascalCase-singleton"></a><a name="22.8"></a>
-  - [23.8](#naming--PascalCase-singleton) Use PascalCase when you export a constructor / class / singleton / function library / bare object.
-
-    ```javascript
-    const AirbnbStyleGuide = {
-      es6: {
-      },
-    };
-
-    export default AirbnbStyleGuide;
-    ```
-
-  <a name="naming--Acronyms-and-Initialisms"></a>
-  - [23.9](#naming--Acronyms-and-Initialisms) Acronyms and initialisms should always be all capitalized, or all lowercased.
-
-    > Why? Names are for readability, not to appease a computer algorithm.
-
-    ```javascript
-    // bad
-    import SmsContainer from './containers/SmsContainer';
-
-    // bad
-    const HttpRequests = [
-      // ...
-    ];
-
-    // good
-    import SMSContainer from './containers/SMSContainer';
-
-    // good
-    const HTTPRequests = [
-      // ...
-    ];
-
-    // best
-    import TextMessageContainer from './containers/TextMessageContainer';
-
-    // best
-    const Requests = [
-      // ...
-    ];
+    # good
+    flight_prereq_checklist = ['landing gear', 'engine', 'flaps']
     ```
 
 **[⬆ back to top](#table-of-contents)**
