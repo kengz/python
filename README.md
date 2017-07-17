@@ -1,6 +1,10 @@
 # Python Style Guide
 
-*A mostly reasonable approach to Python (3)*
+*A mostly reasonable approach to Python*
+
+This is a modern Python style guide born from numerous open source projects and collaborative discussions. You can use this concise guide on its own or with PEP8. This guide focuses on the cutting edge of Python 3.
+
+A style guide must constantly adapt to newer norms, and its basis is community. If you find this useful, please share. If you have updates to contribute, please submit a PR so that the community can adopt them.
 
 Other Style Guides
 
