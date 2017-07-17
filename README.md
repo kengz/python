@@ -131,16 +131,16 @@ Other Style Guides
   - [3.3](#dictionaries--spread) Prefer the dictionary spread operator over `copy()` to shallow-copy and extend dictionaries.
 
     ```python
-    // bad
+    # bad
     original = {'a': 1, 'b': 2}
     clone = original.copy()
     clone.update({'c': 3})
 
-    // good
+    # good
     original = {'a': 1, 'b': 2}
     clone = {**original, 'c': 3}
 
-    // good
+    # good
     original = {'a': 1, 'b': 2}
     original_2 = {'c': 3, 'd': 4}
     long_clone = {**original, **original_2, 'e': 5}
@@ -853,7 +853,7 @@ Other Style Guides
     # bad
     foo = 'bar' if maybe_1 > maybe_2 else 'baz' if value_1 > value_2 else None
 
-    // best
+    # best
     maybe_none = 'baz' if value1 > value2 else None
     foo = 'bar' if maybe1 > maybe2 else maybe_none
     ```
@@ -1152,7 +1152,7 @@ Other Style Guides
 
 ## Commas
 
-<a name="commas--leading-trailing"></a><a name="15.1"></a>
+  <a name="commas--leading-trailing"></a><a name="15.1"></a>
   - [15.1](#commas--leading-trailing) Leading commas: **Nope.**
 
     ```python
@@ -1178,7 +1178,7 @@ Other Style Guides
         , 'super_power': 'computers'
     }
 
-    // good
+    # good
     hero = {
         'first_name': 'Ada',
         'last_name': 'Lovelace',
@@ -1271,7 +1271,7 @@ Other Style Guides
         superpower,
     )
 
-    // good - note that a comma must not appear after a "spread" element
+    # good - note that a comma must not appear after a "spread" element
     create_hero(
         first_name,
         last_name,
