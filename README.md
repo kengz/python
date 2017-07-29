@@ -417,8 +417,37 @@ Other Style Guides
         # ...
     ```
 
-  <a name="functions--signature-no-spacing"></a><a name="7.2"></a>
-  - [7.2](#functions--signature-no-spacing) No spacing in a function signature.
+  <a name="no-complex-default-parameters"></a><a name="7.2"></a>
+  - [7.2](#no-complex-default-parameters) Do not use complex data type as default parameter.
+
+    > Why? Variable to a complex type is a reference, and so the single instance will be modified.
+
+    ```python
+    # bad
+    def init_list(value, new_list=[]):
+        new_list.append(value)
+        return new_list
+
+    init_list(1)
+    # => [1]
+    init_list(2)
+    # => [1, 2], instead of the new init [2]
+
+    # good
+    def init_list(value, new_list=None):
+        if new_list is None:
+            new_list = []
+        new_list.append(value)
+        return new_list
+
+    init_list(1)
+    # => [1]
+    init_list(2)
+    # => [2]
+    ```
+
+  <a name="functions--signature-no-spacing"></a><a name="7.3"></a>
+  - [7.3](#functions--signature-no-spacing) No spacing in a function signature.
 
     > Why? Consistency is good, and eases code search.
 
@@ -432,8 +461,8 @@ Other Style Guides
     def bar(b): print(b)
     ```
 
-  <a name="functions--reassign-params"></a><a name="7.3"></a>
-  - [7.3](#functions--reassign-params) Never reassign parameters.
+  <a name="functions--reassign-params"></a><a name="7.4"></a>
+  - [7.4](#functions--reassign-params) Never reassign parameters.
 
     > Why? Reassigning parameters can lead to unexpected behavior.
 
@@ -456,8 +485,8 @@ Other Style Guides
         # ...
     ```
 
-  <a name="functions--signature-invocation-indentation"></a><a name="7.4"></a>
-  - [7.4](#functions--signature-invocation-indentation) Functions with multiline signatures, or invocations, should be indented just like every other multiline list in this guide: with each item on a line by itself, with a trailing comma on the last item.
+  <a name="functions--signature-invocation-indentation"></a><a name="7.5"></a>
+  - [7.5](#functions--signature-invocation-indentation) Functions with multiline signatures, or invocations, should be indented just like every other multiline list in this guide: with each item on a line by itself, with a trailing comma on the last item.
 
     ```python
     # bad
@@ -487,8 +516,8 @@ Other Style Guides
     )
     ```
 
-  <a name="functions--call-param-name"></a><a name="7.5"></a>
-  - [7.5](#functions--call-param-name) Call function with parameters by specifying their names.
+  <a name="functions--call-param-name"></a><a name="7.6"></a>
+  - [7.6](#functions--call-param-name) Call function with parameters by specifying their names.
 
     > Why? Clarity of parameters and future-proofing. When updating source code function parameters, it can be done reliably with minimal propagation.
 
@@ -507,8 +536,8 @@ Other Style Guides
         # ...
     ```
 
-  <a name="functions--clear-logic"></a><a name="7.6"></a>
-  - [7.6](#functions--clear-logic) Break down code logic into digestible chunks, and refactor a lot.
+  <a name="functions--clear-logic"></a><a name="7.7"></a>
+  - [7.7](#functions--clear-logic) Break down code logic into digestible chunks, and refactor a lot.
 
     > Why? Other programmers and your future self will thank you for writing understandable code.
 
