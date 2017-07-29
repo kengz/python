@@ -1404,9 +1404,9 @@ Other Style Guides
     ```
 
   <a name="naming--singular"></a><a name="16.5"></a>
-  - [16.5](#naming--singular) Use singular or base words in naming; plurals may be used to clearly distinguish a collection from singleton.
+  - [16.5](#naming--singular) Use singular or base words in naming; avoid using plural and instead append singular with the data type.
 
-    > Why? To prevent inconsistencies and second-guesses when using variables.
+    > Why? To prevent inconsistencies and second-guesses when using variables. Also, plurals are 1 letter away from a typo, are hard to read, and are ambiguous on the data type.
 
     ```python
     # bad
@@ -1420,6 +1420,7 @@ Other Style Guides
     # bad - inconsistent naming for same data type and usage
     teacher = ['Michael']
     students = ['Jack', 'Alice', 'Emily']
+    books = pd.DataFrame({'title': ['lorem', 'ipsum']})
 
     for t in teacher:
         register_human(t)
@@ -1427,15 +1428,23 @@ Other Style Guides
     for student in students:
         register_human(student)
 
+    for book in books:
+        register_item(book) # wrong; iterate column name instead of book
+
     # good
     teacher_list = ['Michael']
     student_list = ['Jack', 'Alice', 'Emily']
+    book_df = pd.DataFrame({'title': ['lorem', 'ipsum']})
 
     for teacher in teacher_list:
         register_human(teacher)
 
     for student in student_list:
         register_human(student)
+
+    # naming as df suggests it shall be treated as a dataframe
+    for _idx, book in book_df.iterrow():
+        register_item(book)
     ```
 
   <a name="naming--singular-module"></a><a name="16.6"></a>
@@ -1466,6 +1475,23 @@ Other Style Guides
     # good
     flight_prereq_checklist = ['landing gear', 'engine', 'flaps']
     init_flight(flight_prereq_checklist)
+    ```
+
+  <a name="naming--short"></a><a name="16.8"></a>
+  - [16.8](#naming--short) Use simple, concise names over long, explicit ones.
+
+    > Why? Names are for humans to read, and should make the code clean.
+
+    ```python
+    # bad - explicit Java-style naming clutters code and harms readability
+    poscode_to_city_name_map = {11223: 'brooklyn'}
+    poscode_to_city_name_to_state_name_map = map_city_to_state(poscode_to_city_name_map)
+    poscode_to_city_name_to_state_name_to_country_map = {}
+
+    # good - understandable and fast to read
+    poscode_city_map = {11223: 'brooklyn'}
+    poscode_state_map = map_city_to_state(poscode_city_map)
+    poscode_country_map = {}
     ```
 
 **[⬆ back to top](#table-of-contents)**
